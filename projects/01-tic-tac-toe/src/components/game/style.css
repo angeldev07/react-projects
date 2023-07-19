@@ -1,0 +1,226 @@
+.cell{
+    background-color: #1f3641;
+    box-shadow: 0 10px 0 #0f191e;
+    /* border: 1px solid #fff; */
+    border-radius: 8px;
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+    display: grid;
+    place-content: center;
+    transition: box-shadow .3s cubic-bezier(.23,1,.32,1),transform .3s cubic-bezier(.23,1,.32,1),background-size .3s cubic-bezier(.23,1,.32,1);
+}
+
+.cell:hover{
+    box-shadow: 0 8px 0 #0f191e;
+    transform: translate3d(0,4px,0);
+}
+
+.cell span {
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+}
+
+.cell.projection:hover span,
+.cell.marked span {
+    opacity: 1;
+}
+
+.cell.marked{
+    cursor: not-allowed;
+    box-shadow: 0 4px 0 #0f191e;
+    transform: translate3d(0,8px,0);
+}
+
+.board-game{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 1.5rem;
+    margin: 1rem 0;
+}
+
+/* ================================================================================ */
+
+/* Estilos para el modal */
+.modal--container{
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.modal--content{
+    background-color: #0f191e;
+    width: 100%;
+    text-align: center;
+    padding: 5rem 0;
+}
+
+.modal--content__icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0 3rem 0;
+}
+
+.modal--content__icons--win img{
+    width: 4rem;
+    height: 4rem;
+}
+.modal--content__icons p {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-left: .5em;
+}
+
+.modal--content__icons p.x--win{
+    color: #31c3bd;
+}
+
+.modal--content__icons p.o--win{
+    color: #f2b137;
+}
+
+/* Botones */
+.buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn{
+    background-color: #a8bfc9;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    border: none;
+    outline: none;
+    box-shadow: 0 6px 0 #6b8997;
+    color: #1a2a33;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: box-shadow .3s cubic-bezier(.23,1,.32,1),transform .3s cubic-bezier(.23,1,.32,1),background-size .3s cubic-bezier(.23,1,.32,1);
+}
+
+.btn-quit:hover{
+    background-color: #dbe8ed;
+    box-shadow: 0 3px 0 #6991a2;
+    transform: translate3d(0,3px,0);
+}
+
+.btn-next{
+    background-color: #f2b137;
+    box-shadow: 0 6px 0 #e79c0f;
+
+}
+
+.btn-next:hover{
+    background-color: #f2c65c;
+    box-shadow: 0 3px 0 #e79c0f;
+    transform: translate3d(0,3px,0);
+}
+
+/* =================================================================================== */
+
+/* Estilos para el header del tablero  */
+.board--header{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    gap: 1.5rem;
+    margin: 2rem 0;
+    width: 500px;
+}
+
+.board--header img {
+    width: 80px;
+    vertical-align: middle;
+}
+
+.board--header__player{
+    background-color: #1f3641;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    text-transform: uppercase;
+}
+
+.board--header__player img {
+    width: 20px;
+    height: 20px;
+}
+
+.board--header__reset{
+    background-color: #a8bfc9;
+    border-radius: 1rem;
+    padding: .8rem 2rem;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 0 #6b8997;
+    color: #1a2a33;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: box-shadow .3s cubic-bezier(.23,1,.32,1),transform .3s cubic-bezier(.23,1,.32,1),background-size .3s cubic-bezier(.23,1,.32,1);
+}
+
+.board--header__reset img {
+    width: 25px;
+    height: 25px;
+}
+.board--header__reset:hover{
+    background-color: #dbe8ed;
+    box-shadow: 0 3px 0 #279a95;
+    transform: translate3d(0,3px,0);
+}
+/* ================================================================================== */
+
+/* estilos del score del juego */
+
+.board--score{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+    color: #0f191e;
+    margin: 2rem 0;
+}
+.board--score__player-x,
+.board--score__player-tie,
+.board--score__player-o{
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.board--score__player-x{
+    background-color: #31c3bd;
+    
+}
+
+.board--score__player-tie{
+    background-color: #a8bfc9;
+    text-transform: uppercase;
+
+}
+
+.board--score__player-o{
+    background-color: #f2b137;
+}
