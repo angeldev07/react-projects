@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const Sidebar = () => {
+export const Sidebar = ({ onSearch }) => {
 	// estado para el input
 	const [inputValue, setInputValue] = useState('')
 
@@ -13,26 +13,38 @@ export const Sidebar = () => {
 
 	const handleSearch = () => {
 		setHistory([...history, inputValue])
-        setInputValue('')
+		onSearch(inputValue)
+		setInputValue('')
 	}
 
 	return (
-		<aside className='history-side'>
-			<p className='history-title'>Historial de Busqueda</p>
-			<div className='history__search'>
-				<input
-					type="text"
-					placeholder="goku, vegeta, valorant.."
-					value={inputValue}
-					onChange={ e => handleInputChange(e.target.value) }
-                    onKeyDown={ e => e.key === 'Enter' && handleSearch() }
-				/>
-				<button onClick={ handleSearch }>Buscar</button>
-			</div>
+		<aside className="history-side">
+			<div className='history-fixed'>
+				<p className="history-title">Historial de Busqueda</p>
+				<div className="history__search">
+					<input
+						type="text"
+						placeholder="goku, vegeta, valorant.."
+						value={inputValue}
+						onChange={e => handleInputChange(e.target.value)}
+						onKeyDown={e => e.key === 'Enter' && handleSearch()}
+					/>
+					<button onClick={handleSearch}>Buscar</button>
+				</div>
 
-            {
-               history.length > 0 && history.map( item => (<span className='history-item' key={item}>{item}</span>) )
-            }
+				{
+					history.length > 0 &&
+						history.map(item => (
+							<button
+								onClick={e => onSearch(item)}
+								className="history-item"
+								key={item}
+							>
+								{item}
+							</button>
+						))
+				}
+			</div>
 		</aside>
 	)
 }

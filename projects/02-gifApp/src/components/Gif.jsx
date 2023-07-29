@@ -1,6 +1,5 @@
 export const Gif = ({ heroImg, title, user }) => {
-	console.log(user);
-	const { avatar_url = '', username='Anonimus' } = user ?? {}
+	const { avatar_url = '', username = 'Anonimus' } = user ?? {}
 
 	return (
 		<div className="card-gif">

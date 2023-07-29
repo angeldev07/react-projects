@@ -2,9 +2,8 @@ import results from '../mockups/gif.json'
 import { Gif } from './Gif'
 
 
-export const Gifts = ({ search }) => {
+export const Gifts = ({ search , data }) => {
 
-    const data = results.data
 
 	return (
 		<section className='results-gif-container'>
