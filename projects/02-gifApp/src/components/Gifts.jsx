@@ -7,15 +7,17 @@ export const Gifts = ({ search }) => {
     const data = results.data
 
 	return (
-		<main>
-			<h1>
-				Resultado de busqueda para: <span> {search} </span>{' '}
+		<section className='results-gif-container'>
+			<h1 className='results-gif__title'>
+				Resultados para: <span> {search} </span>
 			</h1>
-           {
-            data.map( ({id, images, title, user})=> (
-               <Gif key={id} heroImg={images.downsized_medium.url} title={title} user={user} />
-            ))
-           }
-		</main>
+            <div className='results-card'>
+                {
+                    data.map( ({id, images, title, user})=> (
+                    <Gif key={id} heroImg={images.downsized_medium.url} title={title} user={user} />
+                    ))
+                }
+            </div>
+		</section>
 	)
 }

@@ -17,9 +17,9 @@ export const Sidebar = () => {
 	}
 
 	return (
-		<aside>
-			<p>Historial de Busqueda</p>
-			<div>
+		<aside className='history-side'>
+			<p className='history-title'>Historial de Busqueda</p>
+			<div className='history__search'>
 				<input
 					type="text"
 					placeholder="goku, vegeta, valorant.."
@@ -31,7 +31,7 @@ export const Sidebar = () => {
 			</div>
 
             {
-                history.map( item => (<p key={item}>{item}</p>) )
+               history.length > 0 && history.map( item => (<span className='history-item' key={item}>{item}</span>) )
             }
 		</aside>
 	)

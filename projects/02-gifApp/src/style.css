@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.main-container{
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Estilos del sidebar */
+.history-side{
+    padding: 1rem;
+}
+
+.history-title{
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.history__search{
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.history__search input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: 6px 0px 0px 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.history__search input:focus,
+.history__search input:hover {
+    border-color: #17c3b2;
+    box-shadow: 0 0 0 2px rgba(23 195 178 / 0.25);
+}
+
+.history__search button {
+    background-color: #17c3b2;
+    border: none;
+    border-radius: 0px 6px 6px 0px;
+    outline: none;
+    padding: 0 1rem;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.history__search button:hover {
+    background-color: #138a7e;
+}
+
+.history-side .history-item {
+    background-color: #2ec4b6;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-right: .5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    color: #fff;
+}
+
+/* Estilos para el contenedor de los gif y los cards */
+.results-gif-container{
+    padding: 0 1rem 1rem;
+}
+
+.results-gif__title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 1em  ;
+}
+
+.results-gif__title  span {
+    color: #e71d36;
+    text-transform: capitalize;
+}
+
+.results-card{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.card-gif{
+    background-color: #fdfdff;
+    border-radius: 8px;
+    box-shadow:  0 2px 7px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card-hero {
+    border-bottom: 1px solid #ccc;
+}
+
+.card-hero img{
+    width: 100%;
+    height: 100%;
+}
+
+.card-texts {
+    padding: 1rem;
+}
+
+.card-texts p:nth-child(1){
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: .5rem;
+}
+
+.card-texts--username{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-texts img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}

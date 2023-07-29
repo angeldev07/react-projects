@@ -1,13 +1,18 @@
 export const Gif = ({ heroImg, title, user }) => {
-	const { avatar_url, username } = user
+	console.log(user);
+	const { avatar_url = '', username='Anonimus' } = user ?? {}
 
 	return (
-		<div>
-			<img src={heroImg} alt={title} />
-			<p> {title} </p>
-			<div>
-				<img src={avatar_url} alt={username} />
-				<p> {username} </p>
+		<div className="card-gif">
+			<div className="card-hero">
+				<img src={heroImg} alt={title} />
+			</div>
+			<div className="card-texts">
+				<p className="card-texts--title"> {title} </p>
+				<div className="card-texts--username">
+					<img src={avatar_url} alt={username} />
+					<p> {username} </p>
+				</div>
 			</div>
 		</div>
 	)

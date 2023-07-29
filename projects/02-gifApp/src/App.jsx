@@ -1,11 +1,11 @@
 import { Gifts } from "./components/Gifts"
 import { Sidebar } from "./components/Sidebar"
+import './style.css'
 
 export const App = () => {
   return (
-    <main>
+    <main className="main-container">
         <Sidebar />
-        <h1>GifApp</h1>
         <Gifts search="goku" />
     </main>
   )
