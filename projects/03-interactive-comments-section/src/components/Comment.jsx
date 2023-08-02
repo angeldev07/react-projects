@@ -12,7 +12,7 @@ export const Comment = ({ content, onAddCommentsReplay, indexParent }) => {
             content: `${valueInput.current.value} ${indexParent}`
         }
 
-        onAddCommentsReplay(indexParent, replay)
+        onAddCommentsReplay({ index: indexParent, comment: replay})
         
         valueInput.current.value = ''
         handleReplay()

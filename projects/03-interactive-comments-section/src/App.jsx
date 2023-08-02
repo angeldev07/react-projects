@@ -1,19 +1,26 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Comment } from './components/Comment'
 import commentsList from '/public/data.json'
 import { useEffect } from 'react'
+import userContext from './contexts/user'
+import { AddCommet } from './components/AddCommet'
 
 const { comments: initialComments } = commentsList
 
 export const App = () => {
+	const { user } = useContext(userContext)
+
 	const [comments, setComments] = useState(initialComments)
 
-	const handleAddCommentsReplay = (index, comment) => {
+	const handleAddCommentsReplay = ({index, comment}) => {
 		// creo una copia del estado actual
 		const commentsToUpdate = [...comments]
 
 		// actualizo el estado en el indice
-		commentsToUpdate[index].replies.push(comment)
+		if (index)
+			commentsToUpdate[index].replies.push(comment)
+		else 
+			commentsToUpdate.push(comment)
 
 		setComments(commentsToUpdate)
 	}
@@ -34,7 +41,7 @@ export const App = () => {
 					/>
 					{comment.replies.length > 0 &&
 						comment.replies.map((replay, i) => (
-							<div key={i * 2} style={{marginLeft: '1.5rem'}}>
+							<div key={i * 2} style={{ marginLeft: '1.5rem' }}>
 								<Comment
 									content={replay.content}
 									indexParent={index}
@@ -44,6 +51,8 @@ export const App = () => {
 						))}
 				</div>
 			))}
+			<br />
+			<AddCommet user={user} onAddComment={handleAddCommentsReplay} />
 		</main>
 	)
 }
