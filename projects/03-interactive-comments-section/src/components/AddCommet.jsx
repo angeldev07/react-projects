@@ -7,7 +7,6 @@ export const AddCommet = ({
 	onHanldeReplay,
 	replayUser,
 }) => {
-
 	const { image, username } = currentUser
 	const comment = useRef('')
 
@@ -35,7 +34,7 @@ export const AddCommet = ({
 	return (
 		<div>
 			<img src={image.png} alt="" width={32} height={32} />
-			<textarea ref={comment} className="add-input"></textarea>
+			<textarea ref={comment} className="add-input" placeholder="Add comment"></textarea>
 			<button onClick={handleAddComment}>send</button>
 		</div>
 	)

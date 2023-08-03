@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Comment } from './components/Comment'
 import commentsList from '/public/data.json'
 import userContext from './contexts/user'
@@ -11,18 +11,36 @@ export const App = () => {
 
 	const [comments, setComments] = useState(initialComments)
 
-	const handleAddCommentsReplay = ({index, comment}) => {
+	const handleAddCommentsReplay = ({ index, comment, edit, userIndex }) => {
 		// creo una copia del estado actual
 		const commentsToUpdate = [...comments]
 
 		// actualizo el estado en el indice
-		if (index !== undefined)
+		if (index !== undefined && !edit)
 			commentsToUpdate[index].replies.push(comment)
-		else 
+
+		if (edit) {
+			commentsToUpdate[index].replies[userIndex].content = comment
+		} else {
 			commentsToUpdate.push(comment)
+		}
 
 		setComments(commentsToUpdate)
 	}
+
+	const handleDeleteComment = ({ index, userIndex }) => {
+		const commentsToUpdate = [...comments]
+
+		if (userIndex !== undefined)
+			commentsToUpdate[index].replies.splice(userIndex, 1)
+		else commentsToUpdate.splice(index, 1)
+
+		setComments(commentsToUpdate)
+	}
+
+	useEffect(() => {
+		console.log(comments)
+	}, [comments])
 
 	return (
 		<main>
@@ -34,6 +52,7 @@ export const App = () => {
 						indexParent={index}
 						onAddCommentsReplay={handleAddCommentsReplay}
 						username={comment.user.username}
+						onDeleteComment={handleDeleteComment}
 					/>
 					{comment.replies.length > 0 &&
 						comment.replies.map((replay, i) => (
@@ -43,13 +62,15 @@ export const App = () => {
 									indexParent={index}
 									onAddCommentsReplay={handleAddCommentsReplay}
 									username={replay.user.username}
+									index={i}
+									onDeleteComment={handleDeleteComment}
 								/>
 							</div>
 						))}
 				</div>
 			))}
 			<br />
-			<AddCommet currentUser={user} onAddComment={handleAddCommentsReplay}  />
+			<AddCommet currentUser={user} onAddComment={handleAddCommentsReplay} />
 		</main>
 	)
 }
