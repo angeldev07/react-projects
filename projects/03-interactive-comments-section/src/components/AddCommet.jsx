@@ -32,10 +32,15 @@ export const AddCommet = ({
 	}
 
 	return (
-		<div>
-			<img src={image.png} alt="" width={32} height={32} />
-			<textarea ref={comment} className="add-input" placeholder="Add comment"></textarea>
-			<button onClick={handleAddComment}>send</button>
+		<div className='bg-white p-4 rounded-md flex flex-col  md:flex-row md:justify-between md:items-start md:gap-4'>
+			<img src={image.png} alt="" width={45} height={45} className='hidden md:inline-block' />
+
+			<textarea className='resize-none border outline-none rounded-md py-2 px-4 overflow-hidden md:w-full' ref={comment}  placeholder="Add comment..."></textarea>
+			
+			<div className='flex justify-between items-start pt-4'>
+				<img src={image.png} alt="" width={45} height={45} className='md:hidden' />
+				<button className='bg-[#5457b6] text-white font-medium py-2 px-6 rounded-md uppercase ' onClick={handleAddComment}>send</button>
+			</div>
 		</div>
 	)
 }

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext,  useState } from 'react'
 import { Comment } from './components/Comment'
 import commentsList from '/public/data.json'
 import userContext from './contexts/user'
@@ -38,39 +38,42 @@ export const App = () => {
 		setComments(commentsToUpdate)
 	}
 
-	useEffect(() => {
-		console.log(comments)
-	}, [comments])
-
 	return (
-		<main>
-			<h1>Listado de comentarios owo</h1>
-			{comments.map((comment, index) => (
-				<div key={comment.id}>
-					<Comment
-						content={comment.content}
-						indexParent={index}
-						onAddCommentsReplay={handleAddCommentsReplay}
-						username={comment.user.username}
-						onDeleteComment={handleDeleteComment}
-					/>
-					{comment.replies.length > 0 &&
-						comment.replies.map((replay, i) => (
-							<div key={i * 2} style={{ marginLeft: '1.5rem' }}>
-								<Comment
-									content={replay.content}
-									indexParent={index}
-									onAddCommentsReplay={handleAddCommentsReplay}
-									username={replay.user.username}
-									index={i}
-									onDeleteComment={handleDeleteComment}
-								/>
+		<main className="w-full min-h-screen flex flex-col items-center justify-center py-6">
+			<div className="w-[90%] mx-auto max-w-[735px]  mb-3 flex flex-col gap-4">
+				{comments.map((comment, index) => (
+					<div key={comment.id}>
+						<Comment
+							content={comment.content}
+							indexParent={index}
+							onAddCommentsReplay={handleAddCommentsReplay}
+							user={comment.user}
+							onDeleteComment={handleDeleteComment}
+						/>
+						{comment.replies.length > 0 && (
+							<div className="pl-4 my-4 border-l-2 border-[#eaecf1] md:ml-10 md:pl-10 flex flex-col gap-4">
+								{comment.replies.map((replay, i) => (
+									<Comment
+										key={i * 2}
+										content={replay.content}
+										indexParent={index}
+										onAddCommentsReplay={handleAddCommentsReplay}
+										user={replay.user}
+										index={i}
+										onDeleteComment={handleDeleteComment}
+									/>
+								))}
 							</div>
-						))}
+						)}
+					</div>
+				))}
+				<div className="w-full">
+					<AddCommet
+						currentUser={user}
+						onAddComment={handleAddCommentsReplay}
+					/>
 				</div>
-			))}
-			<br />
-			<AddCommet currentUser={user} onAddComment={handleAddCommentsReplay} />
+			</div>
 		</main>
 	)
 }
