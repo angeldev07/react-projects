@@ -1,4 +1,4 @@
-import { useContext,  useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Comment } from './components/Comment'
 import commentsList from '/public/data.json'
 import userContext from './contexts/user'
@@ -11,18 +11,24 @@ export const App = () => {
 
 	const [comments, setComments] = useState(initialComments)
 
-	const handleAddCommentsReplay = ({ index, comment, edit, userIndex }) => {
+	const handleAddCommentsReplay = ({ index, comment }) => {
 		// creo una copia del estado actual
 		const commentsToUpdate = [...comments]
 
 		// actualizo el estado en el indice
-		if (index !== undefined && !edit)
-			commentsToUpdate[index].replies.push(comment)
+		if (index !== undefined) commentsToUpdate[index].replies.push(comment)
+		else commentsToUpdate.push(comment)
 
-		if (edit) {
-			commentsToUpdate[index].replies[userIndex].content = comment
+		setComments(commentsToUpdate)
+	}
+
+	const handleEditComment = ({ indexParent, userIndex, comment }) => {
+		const commentsToUpdate = [...comments]
+
+		if (indexParent && !userIndex) {
+			commentsToUpdate[indexParent].content = comment
 		} else {
-			commentsToUpdate.push(comment)
+			commentsToUpdate[indexParent].replies[userIndex].content = comment
 		}
 
 		setComments(commentsToUpdate)
@@ -38,6 +44,10 @@ export const App = () => {
 		setComments(commentsToUpdate)
 	}
 
+	useEffect(() => {
+		console.log(comments)
+	}, [comments])
+
 	return (
 		<main className="w-full min-h-screen flex flex-col items-center justify-center py-6">
 			<div className="w-[90%] mx-auto max-w-[735px]  mb-3 flex flex-col gap-4">
@@ -49,6 +59,8 @@ export const App = () => {
 							onAddCommentsReplay={handleAddCommentsReplay}
 							user={comment.user}
 							onDeleteComment={handleDeleteComment}
+							onEditComment={handleEditComment}
+							score={comment.score}
 						/>
 						{comment.replies.length > 0 && (
 							<div className="pl-4 my-4 border-l-2 border-[#eaecf1] md:ml-10 md:pl-10 flex flex-col gap-4">
@@ -61,6 +73,9 @@ export const App = () => {
 										user={replay.user}
 										index={i}
 										onDeleteComment={handleDeleteComment}
+										onEditComment={handleEditComment}
+										replyingTo={replay.replyingTo}
+										score={replay.score}
 									/>
 								))}
 							</div>
