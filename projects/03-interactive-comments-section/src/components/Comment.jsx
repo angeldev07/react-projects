@@ -1,35 +1,39 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState } from 'react'
+import { useState, useContext } from 'react'
+import userContext from '../contexts/user'
+import { AddCommet } from './AddCommet'
 
-export const Comment = ({ content, onAddCommentsReplay, indexParent }) => {
+export const Comment = ({
+	content,
+	onAddCommentsReplay,
+	indexParent,
+	username,
+}) => {
+
+	const { user } = useContext(userContext)
 	const [replay, setReplay] = useState(false)
-    const valueInput = useRef('')
-
-	const handleReplay = () => setReplay(!replay)
-
-    const handleAddCommentsReplay = () => {
-        const replay = {
-            content: `${valueInput.current.value} ${indexParent}`
-        }
-
-        onAddCommentsReplay({ index: indexParent, comment: replay})
-        
-        valueInput.current.value = ''
-        handleReplay()
-    }
 
 	return (
 		<article>
-			<p> {content} </p>
-			<button disabled={replay} onClick={handleReplay}>
+			<h5> {username} </h5>
+			<p>  {content} </p>
+			<button disabled={replay} onClick={ () => setReplay(!replay)  }>
 				Replay
 			</button>
+			{username === user.username && (
+				<div>
+					<button>delete</button>
+					<button>edit</button>
+				</div>
+			)}
 			{replay && (
-				<>
-					<input ref={valueInput} type="text" placeholder="Escribe tu respuesta" />
-					<button onClick={handleReplay}>cancelar</button>
-					<button onClick={handleAddCommentsReplay} >enviar</button>
-				</>
+				<AddCommet
+					index={indexParent}
+					currentUser={user}
+					onAddComment={onAddCommentsReplay}
+					onHanldeReplay={setReplay}
+					replayUser={username}
+				/>
 			)}
 		</article>
 	)

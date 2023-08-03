@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react'
 import { Comment } from './components/Comment'
 import commentsList from '/public/data.json'
-import { useEffect } from 'react'
 import userContext from './contexts/user'
 import { AddCommet } from './components/AddCommet'
 
@@ -17,17 +16,13 @@ export const App = () => {
 		const commentsToUpdate = [...comments]
 
 		// actualizo el estado en el indice
-		if (index)
+		if (index !== undefined)
 			commentsToUpdate[index].replies.push(comment)
 		else 
 			commentsToUpdate.push(comment)
 
 		setComments(commentsToUpdate)
 	}
-
-	useEffect(() => {
-		console.log(comments)
-	}, [comments])
 
 	return (
 		<main>
@@ -38,6 +33,7 @@ export const App = () => {
 						content={comment.content}
 						indexParent={index}
 						onAddCommentsReplay={handleAddCommentsReplay}
+						username={comment.user.username}
 					/>
 					{comment.replies.length > 0 &&
 						comment.replies.map((replay, i) => (
@@ -46,13 +42,14 @@ export const App = () => {
 									content={replay.content}
 									indexParent={index}
 									onAddCommentsReplay={handleAddCommentsReplay}
+									username={replay.user.username}
 								/>
 							</div>
 						))}
 				</div>
 			))}
 			<br />
-			<AddCommet user={user} onAddComment={handleAddCommentsReplay} />
+			<AddCommet currentUser={user} onAddComment={handleAddCommentsReplay}  />
 		</main>
 	)
 }
