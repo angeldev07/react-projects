@@ -13,7 +13,7 @@ export const Comment = ({
 	onDeleteComment,
 	onEditComment,
 	replyingTo,
-	score
+	score,
 }) => {
 	const { user: currentUser } = useContext(userContext)
 	const [replay, setReplay] = useState(false)
@@ -26,13 +26,9 @@ export const Comment = ({
 
 	return (
 		<>
-			<article className="bg-white rounded-md p-4 font-rubik ">
-				{/* para el contrador en desktop */}
-				<div className="hidden">
-					<Rate score={0} />
-				</div>
+			<article className="bg-white rounded-md p-4 font-rubik relative flex-row-reverse gap-6 md:static md:flex md:p-6">
 				{/* donde ira todo  */}
-				<div>
+				<section className="w-full">
 					<header className="flex">
 						{/* contenedor para la imagen, time ago */}
 						<div className="flex items-center gap-3 ">
@@ -48,7 +44,7 @@ export const Comment = ({
 
 						{/* reply */}
 						{user.username !== currentUser.username && (
-							<div className="flex justify-between ml-auto">
+							<div className="flex justify-between ml-auto absolute bottom-7 right-4 md:static">
 								<button
 									className="flex items-center gap-2 text-[#5457b6] font-bold"
 									disabled={replay}
@@ -65,7 +61,7 @@ export const Comment = ({
 
 						{/* controles: edit y delete */}
 						{user.username === currentUser.username && (
-							<div className="flex items-center gap-3 ml-auto">
+							<div className="flex items-center gap-3 ml-auto absolute bottom-7 right-4 md:static">
 								<button
 									className="text-[#ed6468] font-bold flex items-center gap-2"
 									onClick={() =>
@@ -113,7 +109,7 @@ export const Comment = ({
 							/>
 						</div>
 					)}
-				</div>
+				</section>
 				{/* para contador y botones de control en mobile */}
 				<div>
 					<Rate score={score} />
@@ -134,4 +130,3 @@ export const Comment = ({
 		</>
 	)
 }
-
