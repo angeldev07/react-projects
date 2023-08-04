@@ -30,7 +30,7 @@ export const AddCommet = ({
 		const newComment = {
 			id: Date.now(),
 			content ,
-			createdAt: '',
+			createdAt: new Date().toISOString(),
 			score: 0,
 			user: { image, username },
 			replies: [],
@@ -56,7 +56,7 @@ export const AddCommet = ({
 			/>
 
 			<textarea
-				className="resize-none border-2 outline-none rounded-md py-2 px-4 overflow-hidden md:w-full"
+				className="resize-none border-2 outline-none rounded-md py-2 px-4 overflow-hidden md:w-full transition-colors hover:border-[#5457b6] focus:border-[#5457b6]"
 				ref={comment}
 				placeholder="Add comment..."
 			></textarea>
@@ -70,7 +70,7 @@ export const AddCommet = ({
 					className="md:hidden"
 				/>
 				<button
-					className="bg-[#5457b6] text-white font-medium py-3 px-[30px] rounded-md uppercase "
+					className="bg-[#5457b6] text-white font-medium py-3 px-[30px] rounded-md uppercase transition-opacity hover:opacity-50"
 					onClick={handleAddComment}
 				>
 					{replayUser ? 'reply' : 'send'}

@@ -1,8 +1,10 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import userContext from '../contexts/user'
 import { AddCommet } from './AddCommet'
 import { EditComment } from './EditComment'
 import { Rate } from './Rate'
+import { Modal } from './Modal'
+import { formatDistanceToNowStrict } from 'date-fns'
 
 export const Comment = ({
 	content,
@@ -14,15 +16,28 @@ export const Comment = ({
 	onEditComment,
 	replyingTo,
 	score,
+	created,
 }) => {
 	const { user: currentUser } = useContext(userContext)
 	const [replay, setReplay] = useState(false)
 	const [edit, setEdit] = useState(false)
 	const [editContent, setEditContent] = useState(content)
+	const [open, setOpen] = useState(false)
 
 	const handleEdit = e => {
 		setEditContent(e.target.value)
 	}
+
+	const hanldeDelete = () => {
+		onDeleteComment({ index: indexParent, userIndex: index })
+		setOpen(false)
+	}
+
+	useEffect(() => {
+		if (open) document.body.style.overflow = 'hidden'
+
+		return () => (document.body.style.overflow = 'auto')
+	}, [open])
 
 	return (
 		<>
@@ -40,13 +55,23 @@ export const Comment = ({
 								height={32}
 							/>
 							<span className="text-[#324152] font-bold">{user.username}</span>
+							{user.username === currentUser.username && (
+								<span className="bg-[#5457b6] text-white rounded-md inline-block px-3 text-sm font-normal">
+									you
+								</span>
+							)}
+							<span className="text-[#67727e]">
+								{formatDistanceToNowStrict(new Date(created), {
+									addSuffix: true,
+								})}
+							</span>
 						</div>
 
 						{/* reply */}
 						{user.username !== currentUser.username && (
 							<div className="flex justify-between ml-auto absolute bottom-7 right-4 md:static">
 								<button
-									className="flex items-center gap-2 text-[#5457b6] font-bold"
+									className="flex items-center gap-2 text-[#5457b6] font-bold transition-opacity hover:opacity-60"
 									disabled={replay}
 									onClick={() => setReplay(!replay)}
 								>
@@ -63,10 +88,8 @@ export const Comment = ({
 						{user.username === currentUser.username && (
 							<div className="flex items-center gap-3 ml-auto absolute bottom-7 right-4 md:static">
 								<button
-									className="text-[#ed6468] font-bold flex items-center gap-2"
-									onClick={() =>
-										onDeleteComment({ index: indexParent, userIndex: index })
-									}
+									className="text-[#ed6468] font-bold flex items-center gap-2 transition-opacity hover:opacity-50"
+									onClick={() => setOpen(true)}
 								>
 									<img
 										src="/public/images/icon-delete.svg"
@@ -75,7 +98,7 @@ export const Comment = ({
 									delete
 								</button>
 								<button
-									className="text-[#5457b6] font-bold flex items-center gap-2"
+									className="text-[#5457b6] font-bold flex items-center gap-2 transition-opacity hover:opacity-50"
 									disabled={edit}
 									onClick={() => setEdit(true)}
 								>
@@ -114,6 +137,15 @@ export const Comment = ({
 				<div>
 					<Rate score={score} />
 				</div>
+
+				{open && (
+					<Modal
+						title="Delete comment"
+						description="Are you sure you want to delete this comment? This will remove the comment and can't be undone."
+						onConfirm={hanldeDelete}
+						onCancel={() => setOpen(false)}
+					/>
+				)}
 			</article>
 
 			{replay && (
