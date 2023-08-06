@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    --bg: #5ba4a4;
+    --bg-body: #effafa;
+    --Light-Grayish-Cyan: #eef6f6;
+    --Dark-Grayish-Cyan: #7b8e8e;
+    --Very-Dark-Grayish-Cyan: #2c3a3a;
+
+}
+
