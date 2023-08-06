@@ -6,29 +6,33 @@ function App() {
 	const [jobs, setJobs] = useState(jobsInitialList)
 	const [filterJobsList, setFilterJobsList] = useState([])
 
-  
-  const getFilterJobs = ({job, filter}) => {
-    
-    const {role, level, languages, tools} = job
-    return (role === filter || level === filter || languages.includes(filter) || tools.includes(filter)) 
-  }
-  
-	const hanldeAddFilter = filter => {
-    setFilterJobsList([...filterJobsList, filter])
+	const getFilterJobs = ({ job, filter }) => {
+		const { role, level, languages, tools } = job
+		return (
+			role === filter ||
+			level === filter ||
+			languages.includes(filter) ||
+			tools.includes(filter)
+		)
 	}
-  
 
-  useEffect(() => {
+	const hanldeAddFilter = filter => {
+		setFilterJobsList([...filterJobsList, filter])
+	}
 
-    if(filterJobsList.length > 0)
-        setJobs( prev =>  prev.filter(job => getFilterJobs( {job, filter: filterJobsList[filterJobsList.length - 1]} ) ) )
+	useEffect(() => {
+		if (filterJobsList.length > 0)
+			setJobs(prev =>
+				prev.filter(job =>
+					getFilterJobs({
+						job,
+						filter: filterJobsList[filterJobsList.length - 1],
+					})
+				)
+			)
+	}, [filterJobsList])
 
-  }, [filterJobsList])
-
-
-  console.log('render');
-
-  return (
+	return (
 		<main>
 			<div className="w-full h-[156px] bg-no-repeat bg-cover bg-[var(--bg)] bg-[url('../src/assets/images/bg-header-mobile.svg')] md:bg-[url('../src/assets/images/bg-header-desktop.svg')]">
 				{/* <img src="../src/assets/images/bg-header-mobile.svg" alt="" /> */}
@@ -43,7 +47,7 @@ function App() {
 			)}
 
 			{/* jobs list */}
-			<section>
+			<section className="w-[90%] mx-auto flex flex-col gap-8 mt-10 mb-4">
 				<ListJobs jobs={jobs} onAddFilter={hanldeAddFilter} />
 			</section>
 		</main>
