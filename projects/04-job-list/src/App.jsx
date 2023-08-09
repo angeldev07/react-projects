@@ -7,10 +7,10 @@ import { useJobs } from './hooks/useJobs'
 function App() {
 
 	const { jobs, filters, handleClearFilters, handleDeleteFilter, hanldeAddFilter } = useJobs(jobsInitialList)
-	
+
 	return (
 		<main>
-			<div className="w-full h-[156px] bg-no-repeat bg-cover bg-[var(--bg)] bg-[url('../src/assets/images/bg-header-mobile.svg')] md:bg-[url('../src/assets/images/bg-header-desktop.svg')]">
+			<div className="w-full h-[156px] bg-no-repeat bg-cover bg-[var(--bg)] bg-[url('/images/bg-header-mobile.svg')] md:bg-[url('/images/bg-header-desktop.svg')]">
 				{/* <img src="../src/assets/images/bg-header-mobile.svg" alt="" /> */}
 			</div>
 			{/* filters */}

@@ -12,7 +12,7 @@ export const FilterList = ({ filter, onDeleteFilter }) => {
 						className="text-white bg-[#5ba4a4] w-full h-full p-2 rounded-r-md transition-colors hover:bg-[#2c3a3a]"
 					>
 						<img
-							src="../../src/assets/images/icon-remove.svg"
+							src="/images/icon-remove.svg"
 							alt="remove icon"
 						/>
 					</button>

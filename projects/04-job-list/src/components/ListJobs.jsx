@@ -11,7 +11,7 @@ export const ListJobs = ({ jobs, onAddFilter }) => {
 					<section className="items-center gap-4 lg:flex">
 						<picture>
 							<img
-								src={`../../src/assets/${job.logo}`}
+								src={`/${job.logo}`}
 								alt=""
 								className="w-10 h-10 -mt-9 lg:mt-0 lg:w-16 lg:h-16"
 							/>
