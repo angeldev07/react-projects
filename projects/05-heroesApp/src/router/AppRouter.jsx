@@ -20,7 +20,7 @@ const router = createBrowserRouter([
 				element: <DC />,
 			},
 			{
-				path: 'hero',
+				path: 'hero/:heroId',
 				element: <Hero />,
 			},
 			{
