@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { CountryApp } from '../contry/CountryApp'
+import { CountryDetail } from '../contry/pages/CountryDetail'
 
 
 export const router = createBrowserRouter([
@@ -8,8 +9,8 @@ export const router = createBrowserRouter([
 		element: <CountryApp />,
 	},
 	{
-		path: 'country/:codeCountry',
-		element: <h1> Pagina de detalle</h1>,
+		path: 'country/:nameCountry',
+		element: <CountryDetail />,
 	},
 	{
 		path: '*',

@@ -1,8 +1,14 @@
 /* eslint-disable react/prop-types */
-
+import { useNavigate } from "react-router-dom";
 export const CountryItem = ({ country }) => {
+	const navigate = useNavigate()
+
+	const handleNavigate = () => {
+		navigate(`/country/${country.cca2}`)
+	}
+
 	return (
-		<article className="shadow-xl">
+		<article className="shadow-xl cursor-pointer hover:-translate-y-2 transition-transform" onClick={handleNavigate} >
 			<picture>
 				<img
 					src={country.flags.svg}
