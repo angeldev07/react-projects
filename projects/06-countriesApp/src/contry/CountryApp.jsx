@@ -1,6 +1,4 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import { Header } from './components/Header'
 import { ListCountries } from './components/ListCountries'
 import { REGIONS as regions } from './const/regions'
 
@@ -16,13 +14,12 @@ export const CountryApp = () => {
 	}, [])
 
 	useEffect(() => {
-		if(region.length < 1)
-			return
-		
-		if(region === regions[0]){
+		if (region.length < 1) return
+
+		if (region === regions[0]) {
 			fetch('https://restcountries.com/v3.1/all')
-			.then(res => res.json())
-			.then(res => setCountries(res))
+				.then(res => res.json())
+				.then(res => setCountries(res))
 			return
 		}
 
@@ -51,32 +48,38 @@ export const CountryApp = () => {
 		setSearch(e.target.value)
 	}
 
-	const handleSelect = (e) => {
+	const handleSelect = e => {
 		setRegion(e.target.value)
 	}
 
 	return (
-		<main>
-			<Header />
-			<section>
+		<section className="my-10">
+			<section className="px-6 md:flex">
 				<input
-					className="border border-black"
+					className="shadow-lg w-full md:max-w-[550px] mb-8 px-6 py-3	dark:bg-dark-blue"
 					type="text"
 					value={search}
+					placeholder="Search for a contry..."
 					onChange={handleChange}
 				/>
-				<select value={region} onChange={handleSelect}>
-					{regions.map((regionS,i) => (
-						<option key={i} value={regionS}> {regionS}</option>
+				<select
+					className="inline-block ml-auto px-6 cursor-pointer outline-none shadow-lg dark:bg-dark-blue"
+					value={region}
+					onChange={handleSelect}
+				>
+					{regions.map((regionS, i) => (
+						<option key={i} value={regionS}>
+							{' '}
+							{regionS}
+						</option>
 					))}
 				</select>
-
 			</section>
 			<section className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8 p-6">
 				{filteredCountries.length > 0 && (
 					<ListCountries countries={filteredCountries} />
 				)}
 			</section>
-		</main>
+		</section>
 	)
 }

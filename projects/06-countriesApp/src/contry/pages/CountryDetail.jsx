@@ -27,7 +27,7 @@ export const CountryDetail = () => {
 			<header className="my-6">
 				<button
 					onClick={() => handleNavigate('/')}
-					className="bg-gray-100 rounded-md shadow-2xl px-6 py-2  flex gap-3 capitalize items-center justify-center"
+					className="bg-gray-100 rounded-md shadow-2xl px-6 py-2  flex gap-3 capitalize items-center justify-center dark:bg-dark-blue"
 				>
 					<div className="w-5 h-5">
 						<ArrowBack />
@@ -50,15 +50,16 @@ export const CountryDetail = () => {
 						<h1 className="font-bold text-3xl mt-8 mb-4">
 							{country?.name?.common}
 						</h1>
-						<div className='md:flex gap-10'>
+						<div className="md:flex gap-10">
 							<ul className="pb-8 font-semibold flex flex-col gap-3 ">
 								<li>
 									Native Name:
-									<span className="font-normal">{country.name.official}</span>
+									<span className="font-normal"> {country.name.official}</span>
 								</li>
 								<li>
 									Population:
 									<span className="font-normal">
+										{' '}
 										{country.population.toLocaleString()}
 									</span>
 								</li>
@@ -77,12 +78,11 @@ export const CountryDetail = () => {
 
 							<ul className="pb-6 font-semibold flex flex-col gap-3">
 								<li>
-									Top Level Domain:
+									Top Level Domain:{' '}
 									<span className="font-normal">{country.tld[0]}</span>
 								</li>
 								<li>
-									Currencies:
-									<span className="font-normal">COP</span>
+									Currencies: <span className="font-normal">COP</span>
 								</li>
 								<li>
 									Langueages: <span className="font-normal"> es </span>
@@ -90,19 +90,17 @@ export const CountryDetail = () => {
 							</ul>
 						</div>
 
-						<div className="">
+						<div className="flex flex-col flex-wrap gap-3 md:flex-row md:items-center">
 							<h2 className="capitalize font-bold pb-5 ">border countries</h2>
-							<div className="flex flex-wrap gap-3">
-								{country?.borders?.map(border => (
-									<button
-										key={border}
-										onClick={() => handleNavigate(`/country/${border}`)}
-										className="bg-gray-100 rounded-md shadow-2xl px-4 py-2  capitalize "
-									>
-										{border}
-									</button>
-								))}
-							</div>
+							{country?.borders?.map(border => (
+								<button
+									key={border}
+									onClick={() => handleNavigate(`/country/${border}`)}
+									className="bg-gray-100 rounded-md shadow-2xl px-4 py-2  capitalize dark:bg-dark-blue"
+								>
+									{border}
+								</button>
+							))}
 						</div>
 					</div>
 				</article>
