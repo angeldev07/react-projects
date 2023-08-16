@@ -1,4 +1,4 @@
-import { Moon } from '../../const/icons'
+import { Moon } from '../const/icons'
 
 export const Header = () => {
 	const handleDarkMode = () => {

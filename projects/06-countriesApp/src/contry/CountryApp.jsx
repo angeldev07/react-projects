@@ -1,55 +1,18 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState } from 'react'
 import { ListCountries } from './components/ListCountries'
 import { REGIONS as regions } from './const/regions'
+import { useContries } from './hooks/useCountries'
+import { filterCountries } from './helpers/filterCountries'
 
 export const CountryApp = () => {
-	const [countries, setCountries] = useState([])
+	const { countries, region, updateRegion } = useContries()
 	const [search, setSearch] = useState('')
-	const [region, setRegion] = useState('')
 
-	useEffect(() => {
-		fetch('https://restcountries.com/v3.1/all')
-			.then(res => res.json())
-			.then(res => setCountries(res))
-	}, [])
-
-	useEffect(() => {
-		if (region.length < 1) return
-
-		if (region === regions[0]) {
-			fetch('https://restcountries.com/v3.1/all')
-				.then(res => res.json())
-				.then(res => setCountries(res))
-			return
-		}
-
-		fetch(`https://restcountries.com/v3.1/region/${region}`)
-			.then(res => res.json())
-			.then(res => setCountries(res))
-	}, [region])
-
-	const searchContry = () => {
-		return search.length > 0
-			? countries.filter(
-					country =>
-						country?.name?.common
-							?.toLowerCase()
-							.includes(search.trim().toLowerCase()) ||
-						country?.capital?.[0]
-							?.toLowerCase()
-							.includes(search.trim().toLowerCase())
-			)
-			: countries
-	}
-
-	const filteredCountries = useMemo(() => searchContry(), [countries, search])
+	const filteredCountries =
+		search.trim().length > 0 ? filterCountries(countries, search.trim().toLocaleLowerCase()) : countries
 
 	const handleChange = e => {
 		setSearch(e.target.value)
-	}
-
-	const handleSelect = e => {
-		setRegion(e.target.value)
 	}
 
 	return (
@@ -65,11 +28,10 @@ export const CountryApp = () => {
 				<select
 					className="inline-block ml-auto px-6 cursor-pointer outline-none shadow-lg dark:bg-dark-blue"
 					value={region}
-					onChange={handleSelect}
+					onChange={e => updateRegion(e.target.value)}
 				>
 					{regions.map((regionS, i) => (
 						<option key={i} value={regionS}>
-							{' '}
 							{regionS}
 						</option>
 					))}

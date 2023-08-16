@@ -1,26 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowBack } from '../../const/icons'
-import { useState, useEffect } from 'react'
+import { ArrowBack } from '../const/icons'
+import { useContry } from '../hooks/useCountry'
 
 export const CountryDetail = () => {
-	const params = useParams()
 	const navigate = useNavigate()
 
-	const [country, setCountry] = useState({})
-	const [load, setLoad] = useState(true)
+	const params = useParams()
+	const { country, load } = useContry(params.nameCountry)
 
 	const handleNavigate = to => {
 		navigate(to)
 	}
-
-	useEffect(() => {
-		fetch(`https://restcountries.com/v3.1/alpha/${params.nameCountry}`)
-			.then(res => res.json())
-			.then(res => {
-				setCountry(res[0])
-				setLoad(false)
-			})
-	}, [params.nameCountry])
 
 	return (
 		<section className="px-6  ">
@@ -90,17 +80,21 @@ export const CountryDetail = () => {
 							</ul>
 						</div>
 
-						<div className="flex flex-col flex-wrap gap-3 md:flex-row md:items-center">
-							<h2 className="capitalize font-bold pb-5 ">border countries</h2>
-							{country?.borders?.map(border => (
-								<button
-									key={border}
-									onClick={() => handleNavigate(`/country/${border}`)}
-									className="bg-gray-100 rounded-md shadow-2xl px-4 py-2  capitalize dark:bg-dark-blue"
-								>
-									{border}
-								</button>
-							))}
+						<div className="flex flex-col flex-wrap gap-3 pb-6 md:flex-row md:items-center">
+							<h2 className="capitalize font-bold pb-5 md:pb-0">
+								border countries
+							</h2>
+							<div className="flex flex-wrap gap-3">
+								{country?.borders?.map(border => (
+									<button
+										key={border}
+										onClick={() => handleNavigate(`/country/${border}`)}
+										className="bg-gray-100 rounded-md shadow-2xl px-4 py-2  capitalize dark:bg-dark-blue"
+									>
+										{border}
+									</button>
+								))}
+							</div>
 						</div>
 					</div>
 				</article>

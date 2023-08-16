@@ -1,8 +1,8 @@
 export const REGIONS = [
-	'Filter by Region',
-	'africa',
-	'america',
-	'asia',
-	'europe',
-	'oceania',
+    'Find by Region',
+    'africa',
+    'america',
+    'asia',
+    'europe',
+    'oceania',
 ]
