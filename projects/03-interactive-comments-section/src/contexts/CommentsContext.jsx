@@ -20,7 +20,7 @@ const CommentProvider = ({children}) => {
      * Funcion para agregar un comentario cuando se responde o bien si es un comentario nuevo
      * @param {index, comment} index del comentario padre, comment comentario para agregar 
      */
-	const handleAddCommentsReplay = ({ index, comment }) => {
+	const handleAddCommentsReply = ({ index, comment }) => {
 		// creo una copia del estado actual
 		const commentsToUpdate = [...comments]
 
@@ -65,7 +65,7 @@ const CommentProvider = ({children}) => {
 		localStorage.setItem('comments', JSON.stringify(comments))
 	}, [comments])
 
-    const data = { comments, handleAddCommentsReplay, handleDeleteComment, handleEditComment}
+    const data = { comments, handleAddCommentsReply, handleDeleteComment, handleEditComment}
 
     return (
         <CommentContext.Provider value={data}> 

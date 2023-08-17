@@ -9,11 +9,11 @@ export const App = () => {
 	const { user } = useContext(userContext)
 	const {
 		comments,
-		handleAddCommentsReplay
+		handleAddCommentsReply
 	} = useContext(CommentContext)
 
 	const onAddComment = (newComment) => {
-		handleAddCommentsReplay({comment: newComment})
+		handleAddCommentsReply({comment: newComment})
 	}
 
 	return (
@@ -55,7 +55,7 @@ export const App = () => {
 						<Comment
 							content={comment.content}
 							indexParent={index}
-							onAddCommentsReplay={handleAddCommentsReplay}
+							onAddCommentsReplay={handleAddCommentsReply}
 							user={comment.user}
 							onDeleteComment={handleDeleteComment}
 							onEditComment={handleEditComment}
@@ -69,7 +69,7 @@ export const App = () => {
 										key={replay.id * 2}
 										content={replay.content}
 										indexParent={index}
-										onAddCommentsReplay={handleAddCommentsReplay}
+										onAddCommentsReplay={handleAddCommentsReply}
 										user={replay.user}
 										index={i}
 										onDeleteComment={handleDeleteComment}

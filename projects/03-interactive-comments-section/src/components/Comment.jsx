@@ -13,10 +13,10 @@ export const Comment = ({
 	comment
 }) => {
 	const { user: currentUser } = useContext(userContext)
-	const { handleAddCommentsReplay, handleDeleteComment, handleEditComment } = useContext(CommentContext)
+	const { handleAddCommentsReply, handleDeleteComment, handleEditComment } = useContext(CommentContext)
 	const { content, user, createdAt, replyingTo, score } = comment
 	
-	const [replay, setReplay] = useState(false)
+	const [reply, setReply] = useState(false)
 	const [edit, setEdit] = useState(false)
 	const [open, setOpen] = useState(false)
 	
@@ -32,7 +32,8 @@ export const Comment = ({
 	}
 
 	const onAddComment = (comment) => {
-		handleAddCommentsReplay({index: indexParent, comment})
+		handleAddCommentsReply({index: indexParent, comment})
+		setReply(false)
 	}
 
 	useEffect(() => {
@@ -74,8 +75,8 @@ export const Comment = ({
 							<div className="flex justify-between ml-auto absolute bottom-7 right-4 md:static">
 								<button
 									className="flex items-center gap-2 text-[#5457b6] font-bold transition-opacity hover:opacity-60"
-									disabled={replay}
-									onClick={() => setReplay(!replay)}
+									disabled={reply}
+									onClick={() => setReply(!reply)}
 								>
 									<img
 										src="/public/images/icon-reply.svg"
@@ -146,13 +147,12 @@ export const Comment = ({
 				)}
 			</article>
 
-			{replay && (
+			{reply && (
 				<div className="pt-4 w-ful">
 					<AddCommet
 						currentUser={currentUser}
 						onAddComment={onAddComment}
-						onHanldeReplay={setReplay}
-						replayUser={user.username}
+						replyUser={user.username}
 					/>
 				</div>
 			)}

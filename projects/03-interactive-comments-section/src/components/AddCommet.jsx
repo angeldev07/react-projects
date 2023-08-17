@@ -1,21 +1,11 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 export const AddCommet = ({
 	currentUser,
 	onAddComment,
-	onHanldeReplay,
-	replayUser,
+	replyUser,
 }) => {
 	const { image, username } = currentUser
 	const comment = useRef('')
-
-	useEffect(() => {
-		if (replayUser) {
-			const value = `@${replayUser} `
-			comment.current.defaultValue = value
-			comment.current.setSelectionRange(value.length, value.length)
-			comment.current.focus()
-		}
-	})
 
 	const cleanComment = ({token, comment}) => {
 		return comment.includes(token) ? comment.split(token)[1] : comment
@@ -23,7 +13,7 @@ export const AddCommet = ({
 
 	const handleAddComment = () => {
 
-		const content = cleanComment({token:`@${replayUser} `, comment:comment.current.value })
+		const content = cleanComment({token:`@${replyUser} `, comment:comment.current.value })
 
 		const newComment = {
 			id: Date.now(),
@@ -34,9 +24,8 @@ export const AddCommet = ({
 			replies: [],
 		}
 
-		if (replayUser) {
-			newComment['replyingTo'] = replayUser
-			onHanldeReplay(false)
+		if (replyUser) {
+			newComment['replyingTo'] = replyUser
 		}
 
 		onAddComment(newComment)
@@ -47,7 +36,7 @@ export const AddCommet = ({
 		<div className="bg-white p-4 rounded-md flex flex-col  md:flex-row md:justify-between md:items-start md:gap-4">
 			<img
 				src={image.png}
-				alt=""
+				alt={`profile user image to ${username}`}
 				width={45}
 				height={45}
 				className="hidden md:inline-block"
@@ -57,12 +46,13 @@ export const AddCommet = ({
 				className="resize-none border-2 outline-none rounded-md py-2 px-4 overflow-hidden md:w-full transition-colors hover:border-[#5457b6] focus:border-[#5457b6]"
 				ref={comment}
 				placeholder="Add comment..."
+				defaultValue={replyUser ?  `@${replyUser}` : ''}
 			></textarea>
 
 			<div className="flex justify-between items-start pt-4">
 				<img
 					src={image.png}
-					alt=""
+					alt={`profile user image to ${username}`}
 					width={45}
 					height={45}
 					className="md:hidden"
@@ -71,7 +61,7 @@ export const AddCommet = ({
 					className="bg-[#5457b6] text-white font-medium py-3 px-[30px] rounded-md uppercase transition-opacity hover:opacity-50"
 					onClick={handleAddComment}
 				>
-					{replayUser ? 'reply' : 'send'}
+					{replyUser ? 'reply' : 'send'}
 				</button>
 			</div>
 		</div>

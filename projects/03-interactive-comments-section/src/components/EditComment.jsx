@@ -4,7 +4,6 @@ export const EditComment = ({
 	editContent,
 	onEditComment,
 }) => {
-	console.log(editContent);
 	const editRef = useRef(editContent)
 	return (
 		<div className="flex flex-col gap-4 items-end">
