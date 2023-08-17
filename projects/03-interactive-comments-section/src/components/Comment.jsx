@@ -5,32 +5,34 @@ import { EditComment } from './EditComment'
 import { Rate } from './Rate'
 import { Modal } from './Modal'
 import { formatDistanceToNowStrict } from 'date-fns'
+import CommentContext from '../contexts/CommentsContext'
 
 export const Comment = ({
-	content,
-	onAddCommentsReplay,
 	indexParent,
-	user,
-	index,
-	onDeleteComment,
-	onEditComment,
-	replyingTo,
-	score,
-	created,
+	indexSon,
+	comment
 }) => {
 	const { user: currentUser } = useContext(userContext)
+	const { handleAddCommentsReplay, handleDeleteComment, handleEditComment } = useContext(CommentContext)
+	const { content, user, createdAt, replyingTo, score } = comment
+	
 	const [replay, setReplay] = useState(false)
 	const [edit, setEdit] = useState(false)
-	const [editContent, setEditContent] = useState(content)
 	const [open, setOpen] = useState(false)
+	
 
-	const handleEdit = e => {
-		setEditContent(e.target.value)
+	const handleEdit = newEditContent => {
+		handleEditComment({indexParent, userIndex:indexSon, comment:newEditContent})
+		setEdit(false)
 	}
 
 	const hanldeDelete = () => {
-		onDeleteComment({ index: indexParent, userIndex: index })
+		handleDeleteComment({ index: indexParent, userIndex: indexSon })
 		setOpen(false)
+	}
+
+	const onAddComment = (comment) => {
+		handleAddCommentsReplay({index: indexParent, comment})
 	}
 
 	useEffect(() => {
@@ -61,7 +63,7 @@ export const Comment = ({
 								</span>
 							)}
 							<span className="text-[#67727e]">
-								{formatDistanceToNowStrict(new Date(created), {
+								{formatDistanceToNowStrict(new Date(createdAt), {
 									addSuffix: true,
 								})}
 							</span>
@@ -123,12 +125,8 @@ export const Comment = ({
 					) : (
 						<div className="mt-3 ">
 							<EditComment
-								editContent={editContent}
-								onHanldeEdit={handleEdit}
-								onEditComment={onEditComment}
-								setEdit={setEdit}
-								indexParent={indexParent}
-								index={index}
+								editContent={content}
+								onEditComment={handleEdit}
 							/>
 						</div>
 					)}
@@ -151,9 +149,8 @@ export const Comment = ({
 			{replay && (
 				<div className="pt-4 w-ful">
 					<AddCommet
-						index={indexParent}
 						currentUser={currentUser}
-						onAddComment={onAddCommentsReplay}
+						onAddComment={onAddComment}
 						onHanldeReplay={setReplay}
 						replayUser={user.username}
 					/>

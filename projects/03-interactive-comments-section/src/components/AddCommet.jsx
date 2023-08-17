@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react'
-
 export const AddCommet = ({
 	currentUser,
 	onAddComment,
-	index,
 	onHanldeReplay,
 	replayUser,
 }) => {
@@ -41,7 +39,7 @@ export const AddCommet = ({
 			onHanldeReplay(false)
 		}
 
-		onAddComment({ comment: newComment, index: index })
+		onAddComment(newComment)
 		comment.current.value = ''
 	}
 
