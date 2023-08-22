@@ -1,19 +1,20 @@
-import { useContext } from 'react'
-import { TodoContext } from '../contexts/todos'
+import { SunIcon } from '../const/svgs'
+import { TodoForm } from './TodoForm'
 
 export const Header = () => {
-	const { handleAddTodo } = useContext(TodoContext)
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const { content } = Object.fromEntries(new FormData(e.currentTarget))
-		handleAddTodo(content.toString())
-		e.currentTarget.querySelector('input[name="content"]')!.value = ''
-	}
 	return (
-		<form className='hero-form' onSubmit={handleSubmit} autoComplete="off">
-			<div className='hero-form--check'></div>
-			<input className='hero-form--input' type="text" placeholder="Create a new todo..." name="content" />
-		</form>
+		<header>
+			<div className="hero-img"></div>
+			<div className="hero-container">
+				<div className='hero-container--title'>
+					<h1 className="hero-title"> todo</h1>
+					<button>
+						<SunIcon />
+					</button>
+				</div>
+				<TodoForm />
+			</div>
+		</header>
 	)
 }

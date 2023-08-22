@@ -11,7 +11,7 @@ const FILTER_BUTTONS = {
 export const Footer = () => {
 	const { handleChangeFilter, filterSelected } = useContext(TodoContext)
 	return (
-		<>
+		<footer className="footer-container">
 			{Object.entries(FILTER_BUTTONS).map(([key, { literal }]) => (
 				<button
 					key={key}
@@ -21,6 +21,6 @@ export const Footer = () => {
 					{literal}
 				</button>
 			))}
-		</>
+		</footer>
 	)
 }
