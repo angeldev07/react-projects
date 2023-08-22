@@ -1,36 +1,24 @@
 import { Todos } from './components/Todos'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
-import { useTodos } from './hooks/useTodos'
+import { useContext } from 'react'
+import { TodoContext } from './contexts/todos'
 
 export const App = () => {
-	const {
-		handleAddTodo,
-		handleChangeFilter,
-		handleClear,
-		handleMarkCompletedToDo,
-		handleRemoveTodo,
-		itemLeft,
-		todos
-	} = useTodos()
-
+	const { todos, itemLeft, handleClear } = useContext(TodoContext)
 	return (
 		<main>
 			<h1> To Do List App with TS! </h1>
-			<Header onAddTodo={handleAddTodo} />
+			<Header />
 			<section>
-				<Todos
-					todos={todos}
-					onDeleteTodo={handleRemoveTodo}
-					onMarkTodo={handleMarkCompletedToDo}
-				/>
+				<Todos todos={todos} />
 				<div>
 					<span> {itemLeft} items left </span>
 					<button onClick={handleClear}>Clear Completed</button>
 				</div>
 			</section>
 			<section>
-				<Footer onUpdateFilter={handleChangeFilter} />
+				<Footer />
 			</section>
 		</main>
 	)

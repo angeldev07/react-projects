@@ -1,13 +1,14 @@
-
+import { useContext } from "react";
 import { CrossIcon } from "../const/svgs"
 import { Todo as ToDo } from "../types/types"
+import { TodoContext } from "../contexts/todos";
 
 interface Props extends ToDo {
-    onMarkTodo: (id: number) => void ,
-    onDeleteTodo: (id: number) => void ,
+
 }
 
-export const Todo = ({id, completed, content, onMarkTodo, onDeleteTodo}: Props) => {
+export const Todo = ({id, completed, content}: Props) => {
+	const { handleRemoveTodo, handleMarkCompletedToDo } = useContext(TodoContext)
 	return (
 		<li
 			key={id}
@@ -15,11 +16,11 @@ export const Todo = ({id, completed, content, onMarkTodo, onDeleteTodo}: Props) 
 		>
 			<input
 				type="checkbox"
-				onClick={() => onMarkTodo(id)}
+				onClick={() => handleMarkCompletedToDo(id)}
 				defaultChecked={completed}
 			/>
 			{content}
-			<button onClick={() => onDeleteTodo(id)}>
+			<button onClick={() => handleRemoveTodo(id)}>
 				<CrossIcon />
 			</button>
 		</li>

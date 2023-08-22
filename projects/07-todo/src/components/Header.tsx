@@ -1,13 +1,14 @@
+import { useContext } from "react";
+import { TodoContext } from "../contexts/todos"
 
-interface Props {
-    onAddTodo: (content: string) => void
-}
+export const Header = () => {
 
-export const Header = ({onAddTodo}: Props) => {
+	const { handleAddTodo } = useContext(TodoContext)
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const { content } = Object.fromEntries(new FormData(e.currentTarget))
-		onAddTodo(content.toString())
+		handleAddTodo(content.toString())
 		e.currentTarget.querySelector('input[name="content"]')!.value = ''
 	}
 	return (
