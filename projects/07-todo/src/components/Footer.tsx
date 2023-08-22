@@ -11,18 +11,16 @@ const FILTER_BUTTONS = {
 export const Footer = () => {
 	const { handleChangeFilter, filterSelected } = useContext(TodoContext)
 	return (
-		<footer>
+		<>
 			{Object.entries(FILTER_BUTTONS).map(([key, { literal }]) => (
 				<button
 					key={key}
 					onClick={() => handleChangeFilter(literal)}
-					style={{
-						backgroundColor: literal === filterSelected ? 'red' : ''
-					}}
+					className={`${literal===filterSelected ? 'select': ''}`}
 				>
 					{literal}
 				</button>
 			))}
-		</footer>
+		</>
 	)
 }

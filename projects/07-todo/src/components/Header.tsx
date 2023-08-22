@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { TodoContext } from "../contexts/todos"
+import { useContext } from 'react'
+import { TodoContext } from '../contexts/todos'
 
 export const Header = () => {
-
 	const { handleAddTodo } = useContext(TodoContext)
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -12,11 +11,9 @@ export const Header = () => {
 		e.currentTarget.querySelector('input[name="content"]')!.value = ''
 	}
 	return (
-		<header>
-			<form onSubmit={handleSubmit} autoComplete="off">
-				<div></div>
-				<input type="text" placeholder="Create a new todo..." name="content" />
-			</form>
-		</header>
+		<form className='hero-form' onSubmit={handleSubmit} autoComplete="off">
+			<div className='hero-form--check'></div>
+			<input className='hero-form--input' type="text" placeholder="Create a new todo..." name="content" />
+		</form>
 	)
 }

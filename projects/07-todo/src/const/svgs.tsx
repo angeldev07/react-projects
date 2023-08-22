@@ -1,6 +1,6 @@
 export const CheckIcon = () => {
 	return (
-		<svg xmlns="http://www.w3.org/2000/svg" width="11" height="9">
+		<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11">
 			<path
 				fill="none"
 				stroke="#FFF"

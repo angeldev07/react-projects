@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --text-footer:  hsl(233, 14%, 35%);
+}
+
+body{
+    width: 100%;
+    min-height: 100vh;
+    background-color: hsl(235, 21%, 11%);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
+    color: var(--text-footer);
+}
+
