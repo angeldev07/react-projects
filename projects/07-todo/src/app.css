@@ -186,7 +186,60 @@
     color: hsl(220, 98%, 61%);
 }
 
+/* ================================ Ligth mode ================================ */
+
+.dark,
+.dark .hero-form ,
+.dark .todo,
+.dark .todos-indicator,
+.dark .footer-container
+ { 
+    background-color: hsl(0, 0%, 98%);
+    color: hsl(235, 19%, 35%);
+}
+
+.dark .hero-form input{
+    color: hsl(235, 19%, 35%);
+}
+
+.dark .todo{
+    border-bottom:1px solid hsl(233, 11%, 84%);
+}
+
+.dark .footer-container{
+    box-shadow: 0px 15px 30px 1px rgba(0 0 0  / 0.75);
+}
+
+
+.dark .footer-container button:hover{
+    color: hsl(235, 19%, 35%);
+}
+
+.dark .todos-indicator button:hover{
+    color: hsl(235, 21%, 11%);
+}
+
+.dark .todo .todo--content label:hover {
+    border: 1px solid  hsl(237, 14%, 26%);
+}
+
+.dark .todos-indicator .footer-container{
+    box-shadow: none;
+}
+
+.dark .hero-img {
+    background-image: url('/images/bg-mobile-dark.jpg');
+}
+
+
+
 @media screen and (min-width: 600px) {
+
+    .dark .hero-img {
+        background-image: url('/images/bg-desktop-light.jpg');
+    }
+    
+
     .hero-img{
         background-image: url('/images/bg-desktop-dark.jpg');
         height: 300px;
