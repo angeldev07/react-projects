@@ -3,6 +3,7 @@ import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { useContext } from 'react'
 import { TodoContext } from './contexts/todos'
+import { Copyright } from "./components/Copyright";
 import './app.css'
 export const App = () => {
 	const { todos, itemLeft, handleClear } = useContext(TodoContext)
@@ -18,6 +19,7 @@ export const App = () => {
 				</div>
 			</section>
 			<Footer />
+			<Copyright />
 		</main>
 	)
 }

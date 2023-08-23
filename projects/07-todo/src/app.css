@@ -231,6 +231,27 @@
     background-image: url('/images/bg-mobile-dark.jpg');
 }
 
+.copy {
+    width: 100%;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    color: #fff;
+    font-weight: 700;
+}
+
+.copy a{
+    color: hsl(220, 98%, 61%);
+    transition: color 200ms;
+}
+
+.copy a:hover{
+    color: hsl(220, 94%, 53%);
+}
+
+.dark .copy{
+    color: hsl(235, 21%, 11%);
+}
 
 
 @media screen and (min-width: 600px) {
