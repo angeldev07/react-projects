@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const Card = ({ option, isFlipped, onSeletedOption, isBlock, isMatch }) => {
     const className = isFlipped || isMatch ? 'card hidden' : 'card'
 

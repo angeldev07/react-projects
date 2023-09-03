@@ -1,11 +1,10 @@
-
 import { Score } from './Score'
 import { Card } from './Card'
 import { useContext } from 'react'
 import { MemoryContext } from './contexts/Memory'
 
 export const Board = () => {
-  const { board, block, moves, match, handleSelectedOption} = useContext(MemoryContext)
+  const { board, block, moves, match, times ,handleSelectedOption} = useContext(MemoryContext)
 	return (
 		<section>
 			<div className="board">
@@ -20,7 +19,7 @@ export const Board = () => {
 					/>
 				))}
 			</div>
-			<Score moves={moves} />
+			<Score moves={moves} time={times} />
 		</section>
 	)
 }

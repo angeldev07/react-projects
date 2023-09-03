@@ -3,9 +3,9 @@ import { useMemory } from "../hooks/useMemory";
 
 
 export const MemoryProvider = ({children}) => {
-    const { board, block, match, moves, times, restartGame, handleSelectedOption } = useMemory()
+    const { board, block, match, moves, times, restartGame, handleSelectedOption,handlePauseGame } = useMemory()
     return (
-        <MemoryContext.Provider value={{board, block, match, moves, times, restartGame, handleSelectedOption}}>
+        <MemoryContext.Provider value={{board, block, match, moves, times, restartGame, handleSelectedOption, handlePauseGame}}>
             {children}
         </MemoryContext.Provider>
     )

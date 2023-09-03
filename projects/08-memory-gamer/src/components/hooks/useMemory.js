@@ -1,11 +1,12 @@
 import { useEffect, useReducer } from "react"
 import Swal from "sweetalert2"
+import { useTimer } from "./useTimer"
 
 const INITIAL_STATE = {
     board: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8].sort(() => Math.random() - 0.5).map(option => ({ option, isFlipped: false })),
     selections: [],
     moves: 0,
-    times: '0:00',
+    times: {minutes:0, seconds: 0},
     matches: [],
     block: false
 }
@@ -15,7 +16,8 @@ const ACTION_TYPE = {
     add: 'add',
     restart_selections: 'restart_selections',
     blocking: 'blocking',
-    matched: 'matched' 
+    matched: 'matched' ,
+    time: 'set-time'
 }    
 
 
@@ -26,7 +28,7 @@ const reducer = (state, action) => {
         return {
             board: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8].sort(() => Math.random() - 0.5).map(option => ({ option, isFlipped: false })),
             moves: 0,
-            time: '0:00',
+            times: {minutes:0, seconds: 0},
             matches: [],
             selections: [],
             block: false
@@ -62,11 +64,19 @@ const reducer = (state, action) => {
         }
     }
 
+    if(type === ACTION_TYPE.time) {
+        return {
+            ...state,
+            times: payload.times
+        }
+    }
+
 }
 
 
 export const useMemory = () => {
     const [{board, selections, moves, times, matches, block}, dispatch] = useReducer(reducer, INITIAL_STATE )
+    const {resetTime} = useTimer( (prev) => { dispatch({type:'set-time', payload: {times: prev} }) }, block )
 
     const handleSelectedOption = ({ index }) => () => {
         const newBoard = board.map((card, i) => {
@@ -83,7 +93,12 @@ export const useMemory = () => {
         dispatch({type: 'add', payload:{ board: newBoard, selections:updateSelections} })
     }
 
+    const handlePauseGame = ({block}) => {
+        dispatch({type:'blocking', payload:{block} })
+    }
+
     const restartGame = () => {
+        resetTime()
         dispatch({type: 'restart', payload: {} })
     }
 
@@ -93,7 +108,7 @@ export const useMemory = () => {
 		const [first, second] = selections
 
 		if (first.option !== second.option) {
-			dispatch({type:'blocking', payload:{block: true}})
+			handlePauseGame({block:true})
 			setTimeout(() => {
                 dispatch({type: 'restart_selections', payload: {
                     board: board.map(card => ({ ...card, isFlipped: false })),
@@ -135,7 +150,8 @@ export const useMemory = () => {
         match: matches,
         times,
         handleSelectedOption,
-        restartGame
+        handlePauseGame,
+        restartGame,
     }
 }
 
