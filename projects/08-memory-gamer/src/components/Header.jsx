@@ -1,19 +1,22 @@
 
-import { useContext } from "react"
+import { useContext, useEffect} from "react"
 import { Logo } from "./icons/icons"
 import { MemoryContext } from "./contexts/Memory"
 import { Menu } from "./Menu"
 import { useModal } from "./hooks/useModal"
 
 export const Header = () => {
-  const { restartGame, handlePauseGame } = useContext(MemoryContext)
-  const { open, manageModal} = useModal()
+  const { restartGame, reallyPausedGame, paused } = useContext(MemoryContext)
+  const { open, manageModal } = useModal(paused)
+
+
+  useEffect(() => console.log(open, paused), [open,paused])
 
   const handleMenu = (type) => () => {
     if(type === 1)
-      handlePauseGame({block: true});
+      reallyPausedGame({paused: true});
     else 
-      handlePauseGame({block: false});
+      reallyPausedGame({paused: false});
     manageModal();
   }
 

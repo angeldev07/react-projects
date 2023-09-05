@@ -1,5 +1,4 @@
 import { useEffect, useReducer } from "react"
-import Swal from "sweetalert2"
 import { useTimer } from "./useTimer"
 
 const INITIAL_STATE = {
@@ -8,7 +7,9 @@ const INITIAL_STATE = {
     moves: 0,
     times: {minutes:0, seconds: 0},
     matches: [],
-    block: false
+    block: false,
+    win: false,
+    paused: false
 }
 
 const ACTION_TYPE = {
@@ -17,7 +18,9 @@ const ACTION_TYPE = {
     restart_selections: 'restart_selections',
     blocking: 'blocking',
     matched: 'matched' ,
-    time: 'set-time'
+    time: 'set-time',
+    win: 'set-win',
+    paused: 'set-paused'
 }    
 
 
@@ -31,7 +34,9 @@ const reducer = (state, action) => {
             times: {minutes:0, seconds: 0},
             matches: [],
             selections: [],
-            block: false
+            block: false,
+            win: false,
+            paused: false
         }
     }
 
@@ -71,12 +76,26 @@ const reducer = (state, action) => {
         }
     }
 
+    if(type === ACTION_TYPE.win) {
+        return {
+            ...state,
+            win: true 
+        }
+    }
+
+    if(type === ACTION_TYPE.paused){
+        return {
+            ...state,
+            paused: payload.paused
+        }
+    }
+
 }
 
 
 export const useMemory = () => {
-    const [{board, selections, moves, times, matches, block}, dispatch] = useReducer(reducer, INITIAL_STATE )
-    const {resetTime} = useTimer( (prev) => { dispatch({type:'set-time', payload: {times: prev} }) }, block )
+    const [{board, selections, moves, times, matches, block, win, paused}, dispatch] = useReducer(reducer, INITIAL_STATE )
+    const {resetTime} = useTimer( (prev) => { dispatch({type:'set-time', payload: {times: prev} }) }, win, paused )
 
     const handleSelectedOption = ({ index }) => () => {
         const newBoard = board.map((card, i) => {
@@ -95,6 +114,11 @@ export const useMemory = () => {
 
     const handlePauseGame = ({block}) => {
         dispatch({type:'blocking', payload:{block} })
+    }
+
+    const reallyPausedGame = ({paused}) => {
+        dispatch({type:'set-paused', payload:{paused} })
+
     }
 
     const restartGame = () => {
@@ -121,11 +145,13 @@ export const useMemory = () => {
 		}
 
 		if (first.option === second.option) {
+            handlePauseGame({block:true})
             setTimeout(() => {
                 dispatch({type: 'matched', payload: {
                     matches: [...matches, first.option],
                     selections: [],
-                    moves: moves + 1
+                    moves: moves + 1,
+                    block: false
                 }})   
             }, 1000);
 		}
@@ -133,14 +159,7 @@ export const useMemory = () => {
 
     useEffect(() => {
 		if (matches.length < board.length / 2) return 
-
-		Swal.fire({
-			title: 'You win ',
-			text: 'You won this time. ',
-			icon: 'success',
-			confirmButtonText: 'Cool',
-		})
-        dispatch({type: 'restart', payload: {} })
+        dispatch({type: 'set-win', payload: {}})
 	}, [matches])
 
     return {
@@ -149,9 +168,12 @@ export const useMemory = () => {
         moves,
         match: matches,
         times,
+        win,
+        paused,
         handleSelectedOption,
         handlePauseGame,
         restartGame,
+        reallyPausedGame
     }
 }
 
