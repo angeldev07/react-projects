@@ -8,8 +8,10 @@ export const CountryApp = () => {
 	const { countries, region, updateRegion } = useContries()
 	const [search, setSearch] = useState('')
 
-	const filteredCountries =
-		search.trim().length > 0 ? filterCountries(countries, search.trim().toLocaleLowerCase()) : countries
+	const debounceFilteredCountries =
+		search.length > 0
+			? filterCountries(countries, search)
+			: countries
 
 	const handleChange = e => {
 		setSearch(e.target.value)
@@ -38,8 +40,8 @@ export const CountryApp = () => {
 				</select>
 			</section>
 			<section className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8 p-6">
-				{filteredCountries.length > 0 && (
-					<ListCountries countries={filteredCountries} />
+				{debounceFilteredCountries.length > 0 && (
+					<ListCountries countries={debounceFilteredCountries} />
 				)}
 			</section>
 		</section>

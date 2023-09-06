@@ -28,11 +28,11 @@ export const useContries = () => {
 
         searchCountries(`https://restcountries.com/v3.1/region/${region}`)
 	}, [region])
-    
+
     return {
         countries,
         region,
-        updateRegion
+        updateRegion,
     }
 
 }
