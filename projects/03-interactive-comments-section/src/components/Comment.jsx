@@ -79,7 +79,7 @@ export const Comment = ({
 									onClick={() => setReply(!reply)}
 								>
 									<img
-										src="/public/images/icon-reply.svg"
+										src="/images/icon-reply.svg"
 										alt="icono de replay"
 									/>
 									Reply
@@ -95,7 +95,7 @@ export const Comment = ({
 									onClick={() => setOpen(true)}
 								>
 									<img
-										src="/public/images/icon-delete.svg"
+										src="/images/icon-delete.svg"
 										alt="icono de replay"
 									/>
 									delete
@@ -106,7 +106,7 @@ export const Comment = ({
 									onClick={() => setEdit(true)}
 								>
 									<img
-										src="/public/images/icon-edit.svg"
+										src="/images/icon-edit.svg"
 										alt="icono de replay"
 									/>
 									edit
