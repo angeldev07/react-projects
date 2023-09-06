@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const useTimer = (onTimeChange, isBlock) => {
+export const useTimer = (onTimeChange, isWin, isPaused) => {
     const [time, setTime] = useState({minutes: 0, seconds: 0})
 
     const resetTime = () => {
@@ -10,24 +10,25 @@ export const useTimer = (onTimeChange, isBlock) => {
     useEffect(() => { 
         let timer 
 
-        if(!isBlock){
-            timer = setInterval(() => {
-                const prev = {...time}
-        
-                if(prev.seconds === 59){
-                    prev.minutes = prev.minutes + 1
-                    prev.seconds = 0  
-                } else {
-                    prev.seconds =  prev.seconds + 1
-                }
-                setTime(prev)
-                onTimeChange(prev)
-        
-            }, 1000);
+        if( !isPaused && !isWin){
+         timer = setInterval(() => {
+            const prev = {...time}
+    
+            if(prev.seconds === 59){
+                prev.minutes = prev.minutes + 1
+                prev.seconds = 0  
+            } else {
+                prev.seconds =  prev.seconds + 1
+            }
+            setTime(prev)
+            onTimeChange(prev)
+    
+        }, 1000);
         }
 
         return () => clearInterval(timer)
-    }, [time, onTimeChange, isBlock])
+    }, [time, isPaused, isWin])
+
 
     return {
         time,

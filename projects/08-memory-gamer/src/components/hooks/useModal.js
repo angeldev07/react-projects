@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 
-export const useModal = () => {
-    const [open, setOpen] = useState(false)
+export const useModal = (isOpen) => {
+    const [open, setOpen] = useState(isOpen ? isOpen :  false)
 
     const manageModal = () => setOpen(!open)
 
 
     useEffect(() => {
+        setOpen(isOpen)
 
         if(open){
             document.body.style.overflow = 'hidden'
@@ -16,7 +17,7 @@ export const useModal = () => {
         document.body.style.overflow = 'auto'
 
 
-    }, [open])
+    }, [open, isOpen])
 
     return {
         open,

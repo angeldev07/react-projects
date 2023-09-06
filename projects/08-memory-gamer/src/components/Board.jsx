@@ -2,9 +2,11 @@ import { Score } from './Score'
 import { Card } from './Card'
 import { useContext } from 'react'
 import { MemoryContext } from './contexts/Memory'
-
+import { ModalWin } from './ModalWin'
+import { useModal } from './hooks/useModal'
 export const Board = () => {
-  const { board, block, moves, match, times ,handleSelectedOption} = useContext(MemoryContext)
+  const { board, block, moves, match, times ,handleSelectedOption, win} = useContext(MemoryContext)
+  const {open, manageModal} = useModal(win)
 	return (
 		<section>
 			<div className="board">
@@ -20,6 +22,7 @@ export const Board = () => {
 				))}
 			</div>
 			<Score moves={moves} time={times} />
+			{open && <ModalWin close={manageModal} />}
 		</section>
 	)
 }

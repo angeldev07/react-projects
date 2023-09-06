@@ -18,6 +18,7 @@
 }
 
 .btn{
+    display: block;
     padding: .4rem 1.7rem;
     border-radius: 1.5rem;
     border: none;
@@ -172,12 +173,67 @@
 
 }
 
+/* Modal de pantalla cuando se gana  */
+.modal-header{
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h2{
+    padding-bottom: .9rem;
+    font-size: 2rem;
+    color: #152938;
+}
+
+
+.modal-header p {
+    color: #7191a5;
+    font-weight: 700;
+}
+
+.stats-container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.stats-container .stats { 
+    background-color: #dfe7ec;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    align-items: center;
+    padding: .6rem;
+}
+
+.stats span:first-child { 
+    color: #7191a5;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.stats span:last-child { 
+    color: #304859;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    padding-top: .4em;
+}
+
+.modal .btns-container {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding-top: 1.5rem;
+}
+
 @media screen and (min-width: 600px) {
 
     .game .game--header .desktop {
         display: flex;
         align-items: center;
         gap: .5rem;
+        width: 100%;
     }
 
     .game .game--header section > div:first-child{
@@ -185,7 +241,7 @@
     }
 
     .board{
-        height: 70vh;
+        height: 500px;
     }
 
     .card-icon{
@@ -205,5 +261,38 @@
     .btn{
         font-size: 1.5rem;
         padding: .5em 1em;
+    }
+
+    /* modal win */
+    .modal-header h2 {
+        font-size: 3rem;
+    }
+
+    .modal-header p {
+        font-size: 1rem;
+    }
+
+    .stats-container .stats{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.3rem;
+    }
+
+    .stats span:first-child {
+        font-size: 1.2rem;
+    }
+
+    .stats span:last-child{
+        padding: 0;
+    }
+
+    .modal .btns-container{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .modal .btns-container .btn {
+        flex: 1 1 50%;
     }
 }
