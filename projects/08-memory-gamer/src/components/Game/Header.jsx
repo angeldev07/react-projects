@@ -1,9 +1,9 @@
 
 import { useContext, useEffect} from "react"
-import { Logo } from "./icons/icons"
-import { MemoryContext } from "./contexts/Memory"
+import { Logo } from "../icons/icons"
+import { MemoryContext } from "../contexts/Memory"
 import { Menu } from "./Menu"
-import { useModal } from "./hooks/useModal"
+import { useModal } from "../hooks/useModal"
 
 export const Header = () => {
   const { restartGame, reallyPausedGame, paused } = useContext(MemoryContext)

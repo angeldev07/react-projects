@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { MemoryContext } from "./contexts/Memory"
+import { MemoryContext } from "../contexts/Memory"
 
 export const ModalWin = ({close}) => {
   const { moves, times, restartGame} = useContext(MemoryContext)
