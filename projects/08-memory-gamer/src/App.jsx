@@ -1,16 +1,21 @@
-import { Board } from './components/Board'
-import './app.css'
-import { Header } from './components/Header'
-import { MemoryProvider } from './components/contexts/Memory'
-
+import { Board } from './components/Game/Board'
+import { Header } from './components/Game/Header'
+import { MemoryContext } from './components/contexts/Memory'
+import { useContext } from 'react'
+import { Screen } from './components/setupGame/Screen'
 
 export const App = () => {
-  return (
-    <main className='game'>
-      <MemoryProvider>
-        <Header />
-        <Board />
-      </MemoryProvider>
-    </main>
-  )
+	const { play } = useContext(MemoryContext)
+	return (
+		<main>
+			{play ? (
+				<section className='game'>
+					<Header />
+					<Board />
+				</section>
+			) : (
+				<Screen />
+			)}
+		</main>
+	)
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const useTimer = (onTimeChange, isWin, isPaused) => {
+export const useTimer = (onTimeChange, isWin, isPaused, isPlaying) => {
     const [time, setTime] = useState({minutes: 0, seconds: 0})
 
     const resetTime = () => {
@@ -9,6 +9,8 @@ export const useTimer = (onTimeChange, isWin, isPaused) => {
 
     useEffect(() => { 
         let timer 
+
+        if(!isPlaying) return
 
         if( !isPaused && !isWin){
          timer = setInterval(() => {
@@ -27,7 +29,7 @@ export const useTimer = (onTimeChange, isWin, isPaused) => {
         }
 
         return () => clearInterval(timer)
-    }, [time, isPaused, isWin])
+    }, [time, isPaused, isWin, isPlaying])
 
 
     return {

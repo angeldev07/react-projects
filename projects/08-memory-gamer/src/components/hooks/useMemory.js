@@ -9,7 +9,8 @@ const INITIAL_STATE = {
     matches: [],
     block: false,
     win: false,
-    paused: false
+    paused: false,
+    play: false
 }
 
 const ACTION_TYPE = {
@@ -20,7 +21,8 @@ const ACTION_TYPE = {
     matched: 'matched' ,
     time: 'set-time',
     win: 'set-win',
-    paused: 'set-paused'
+    paused: 'set-paused',
+    play: 'set-play'
 }    
 
 
@@ -36,8 +38,10 @@ const reducer = (state, action) => {
             selections: [],
             block: false,
             win: false,
-            paused: false
+            paused: false,
+            play: true 
         }
+
     }
 
     if(type === ACTION_TYPE.add) {
@@ -90,12 +94,19 @@ const reducer = (state, action) => {
         }
     }
 
+    if(type === ACTION_TYPE.play){
+        return {
+            ...state,
+            play: payload.play
+        }
+    }
+
 }
 
 
 export const useMemory = () => {
-    const [{board, selections, moves, times, matches, block, win, paused}, dispatch] = useReducer(reducer, INITIAL_STATE )
-    const {resetTime} = useTimer( (prev) => { dispatch({type:'set-time', payload: {times: prev} }) }, win, paused )
+    const [{board, selections, moves, times, matches, block, win, paused, play}, dispatch] = useReducer(reducer, INITIAL_STATE)
+    const {resetTime} = useTimer( (prev) => { dispatch({type:'set-time', payload: {times: prev} }) }, win, paused, play )
 
     const handleSelectedOption = ({ index }) => () => {
         const newBoard = board.map((card, i) => {
@@ -124,6 +135,10 @@ export const useMemory = () => {
     const restartGame = () => {
         resetTime()
         dispatch({type: 'restart', payload: {} })
+    }
+
+    const startGame = () => {
+        dispatch({type: 'set-play', payload: {play: true } })
     }
 
 	useEffect(() => {
@@ -170,9 +185,11 @@ export const useMemory = () => {
         times,
         win,
         paused,
+        play,
         handleSelectedOption,
         handlePauseGame,
         restartGame,
+        startGame,
         reallyPausedGame
     }
 }

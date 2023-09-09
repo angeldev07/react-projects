@@ -1,0 +1,32 @@
+.container-screen{
+    background-color: #152938;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-screen .modal{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.container-screen .modal .btns-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.container-screen .modal .btns-container .btn {
+    flex: 1;
+}
+
+
+
+.modal-title {
+    font-size: 1.3rem;
+    color: #7191a5;
+    font-weight: 700;
+    text-transform: capitalize;
+}
