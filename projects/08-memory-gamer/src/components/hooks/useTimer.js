@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const useTimer = (onTimeChange, isWin, isPaused, isPlaying) => {
+export const useTimer = (onTimeChange, isWin, isPaused, isPlaying, isMultiplayer) => {
     const [time, setTime] = useState({minutes: 0, seconds: 0})
 
     const resetTime = () => {
@@ -10,7 +10,7 @@ export const useTimer = (onTimeChange, isWin, isPaused, isPlaying) => {
     useEffect(() => { 
         let timer 
 
-        if(!isPlaying) return
+        if(!isPlaying || isMultiplayer) return
 
         if( !isPaused && !isWin){
          timer = setInterval(() => {

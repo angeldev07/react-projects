@@ -4,12 +4,22 @@ import { useContext } from 'react'
 import { MemoryContext } from '../contexts/Memory'
 import { ModalWin } from './ModalWin'
 import { useModal } from '../hooks/useModal'
+import { GRID_SIZE } from '../../const/const'
 export const Board = () => {
-  const { board, block, moves, match, times ,handleSelectedOption, win} = useContext(MemoryContext)
-  const {open, manageModal} = useModal(win)
+	const {
+		board,
+		isBlock,
+		moves,
+		match,
+		times,
+		isWinner,
+		size,
+		handleSelectedOption,
+	} = useContext(MemoryContext)
+	const { open, manageModal } = useModal(isWinner)
 	return (
 		<section>
-			<div className="board">
+			<div className={`board board-${size == GRID_SIZE.FOUR ? '4x4' : '6x6'}`}>
 				{board.map(({ option, isFlipped }, index) => (
 					<Card
 						key={index}
@@ -17,7 +27,7 @@ export const Board = () => {
 						isFlipped={isFlipped}
 						isMatch={match.includes(option)}
 						onSeletedOption={handleSelectedOption({ index })}
-						isBlock={block}
+						isBlock={isBlock}
 					/>
 				))}
 			</div>
@@ -26,4 +36,3 @@ export const Board = () => {
 		</section>
 	)
 }
-

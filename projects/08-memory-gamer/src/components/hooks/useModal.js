@@ -11,6 +11,7 @@ export const useModal = (isOpen) => {
 
         if(open){
             document.body.style.overflow = 'hidden'
+            window.scrollTo({ top: 0, behavior: 'smooth' })
             return
         }
 

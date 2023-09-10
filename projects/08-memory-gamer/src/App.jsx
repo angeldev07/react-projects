@@ -5,10 +5,10 @@ import { useContext } from 'react'
 import { Screen } from './components/setupGame/Screen'
 
 export const App = () => {
-	const { play } = useContext(MemoryContext)
+	const { isPlaying } = useContext(MemoryContext)
 	return (
 		<main>
-			{play ? (
+			{isPlaying ? (
 				<section className='game'>
 					<Header />
 					<Board />
