@@ -12,14 +12,14 @@ export const Sidebar = ({open}:State) => {
         <button className="w-full capitalize bg-[#e46643] rounded-md px-4 py-2 text-white ">+ new document</button>
         {/* all documents */}
         <section className="my-8">
-           <ul className="flex flex-col gap-4">
-            {[1,2].map(item => (
+           <ul className="flex flex-col gap-4 max-h-[60vh] overflow-y-scroll">
+            {[1,2,3,4,5,6,7,8,9,10].map(item => (
                     <DocumentItem key={item}/>
                 ))}
            </ul>
         </section>
         {/* swtich theme */}
-        <footer>
+        <footer className=" absolute bottom-10">
                <SwtichTheme />
         </footer>
     </aside>

@@ -13,7 +13,7 @@ export const Editor = () => {
 
 	return (
 		<section className={`w-full h-full`}>
-            <div className={`editor-container ${show ? 'notShow' : 'activate'} `}>
+            <div className={`w-full h-full editor-container ${show ? 'notShow' : 'activate'} `}>
                 <Markdown handleShow={() => setShow(!show)} onChangeText={handleChange} /> 
                 <Preview handleShow={() => setShow(!show)} value={text} />
             </div>
