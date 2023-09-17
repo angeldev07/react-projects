@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Header } from "./components/header/Header"
 import { Sidebar } from "./components/sidebar/Sidebar"
+import { Editor } from "./components/editor/Editor";
 
 export const App = () => {
-  const [openSidebar, setOpenSidebar] = useState(true)
+  const [openSidebar, setOpenSidebar] = useState(false)
 
   return (
-    <main className="w-full min-h-screen bg-gray-700 font-roboto overflow-hidden">
+    <main className="w-full h-screen bg-gray-700 font-roboto overflow-hidden">
         <Sidebar open={openSidebar} />
-        <section className={`transition-transform ${openSidebar ? 'translate-x-[250px]': 'translate-x-0 '}`} >
+        <section className={`w-full h-full transition-transform ${openSidebar ? 'translate-x-[250px]': 'translate-x-0 '}`} >
           <Header openSidebar={() => setOpenSidebar(!openSidebar)} open={openSidebar} />
+          <Editor />
         </section>
     </main>
   )
