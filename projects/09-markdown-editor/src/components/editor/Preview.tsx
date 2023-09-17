@@ -8,9 +8,9 @@ interface State {
 
 export const Preview = ({handleShow, value}:State) => {
   return (
-    <section className="w-full h-ful">
+    <section className="w-full h-full">
         <EditorHeader title="preview"  handleShow={handleShow}/>
-        <div className="block w-full h-screen bg-[#151619] text-[#c1c4cb] p-4 outline-none border-none ">
+        <div className="block w-full h-full overflow-y-auto bg-[#151619] text-[#c1c4cb] p-4 outline-none border-none ">
           <Markdown children={value}></Markdown>
         </div>
     </section>

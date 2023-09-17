@@ -1,4 +1,6 @@
+import { useContext } from "react"
 import { CloseIcon, DeleteIcon, DocumentIcon, HamburgerIcon, Logo, SaveIcon } from "../icons/icons"
+import { DocumentsContext } from "../../contexts/Documents"
 
 interface State {
   openSidebar: () => void,
@@ -6,6 +8,7 @@ interface State {
 }
 
 export const Header = ({openSidebar, open}:State) => {
+    const { selectedDocument } = useContext(DocumentsContext )
   return (
     <header className="w-full bg-[#2b2d31] flex ">
         <div className="w-full flex items-center">
@@ -24,7 +27,7 @@ export const Header = ({openSidebar, open}:State) => {
                 </span>
                 <div className="flex flex-col">
                     <label htmlFor="" className=" hidden md:inline-block capitalize leading-none text-[#c1c4cb] font-normal text-xs">document name</label>
-                    <input type="text" placeholder="welcome.md" className="w-full text-white  bg-transparent outline-none caret-[#e46643] focus:border-white focus:border-b" />
+                    <input type="text" placeholder="welcome.md" className="w-full text-white  bg-transparent outline-none caret-[#e46643] focus:border-white focus:border-b" defaultValue={selectedDocument.title} />
                 </div>
             </div>
         </div>
