@@ -3,6 +3,8 @@ import { CloseIcon, DeleteIcon, DocumentIcon, HamburgerIcon, Logo, SaveIcon } fr
 import { DocumentsContext } from "../../contexts/Documents"
 
 import toast, { Toaster } from 'react-hot-toast';
+import { Modal } from "../../ui/Modal";
+import { useModal } from "../../hooks/useModal";
 
 interface State {
   openSidebar: () => void,
@@ -12,7 +14,7 @@ interface State {
 export const Header = ({openSidebar, open}:State) => {
     const { selectedDocument, handleDeletedDoc, updateNameDoc, saveDoc } = useContext(DocumentsContext )
     const notify = (message: string) => toast.success(message);
-
+    const {openModal, handleModal, handleClose} = useModal()
   return (
     <header className="w-full bg-[#2b2d31] flex ">
         <div className="w-full flex items-center">
@@ -37,7 +39,7 @@ export const Header = ({openSidebar, open}:State) => {
         {/* contenedor del nombre el archivo y los botones de accion */}
         <div className=" flex px-2  items-center"> 
             <div className="flex gap-4">
-                <button onClick={() => {handleDeletedDoc(); notify('Document deleted success')}} className={`hover:text-[#e46643] ${ selectedDocument.id === '-1' ? 'hidden': '' }`}>
+                <button onClick={() => { handleModal(true)} } className={`hover:text-[#e46643] ${ selectedDocument.id === '-1' ? 'hidden': '' }`}>
                     <DeleteIcon />
                 </button>
                 <button onClick={() => { saveDoc(); notify('Save document success')}} disabled={selectedDocument.id === '-1'} className={`flex items-center justify-center text-white rounded-md p-3  md:w-40 ${selectedDocument.id === '-1' ? 'bg-[#5a6069]':'bg-[#e46643] hover:opacity-90'}`}>
@@ -48,6 +50,16 @@ export const Header = ({openSidebar, open}:State) => {
         </div>
         
         <Toaster/>
+
+        <Modal handleClose={handleClose} open={openModal}>
+            <>
+                <h2 className='text-xl font-bold'>Delete this document?</h2>
+                <span className="text-neutral-500 font-semibold  ">
+                Are you sure you want to delete the ‘welcome.md’ document and its contents? This action cannot be reversed.
+                </span>
+                <button onClick={() => { handleDeletedDoc(); notify('Document deleted success'); handleModal(false)} } className="block w-full py-2 rounded-lg mt-4 text-white  font-bold px-4 bg-[#e46643] hover:bg-[#e46643e3] transition-colors text-center capitalize">confirm & delete</button>
+            </>
+        </Modal>
     
     </header>
   )
