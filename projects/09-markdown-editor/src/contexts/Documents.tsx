@@ -13,10 +13,10 @@ export const DocumentsContext = createContext<useDocumentsI>(
 //create the provider of context
 
 export const DocumentsProvider: React.FC<Props> = ({ children }) => {
-	const { documents, selectedDocument, handleSomething } = useDocuments()
+	const { documents, selectedDocument, handleSomething, handleAddDoc, handleDeletedDoc, handleSelectDoc, updateNameDoc, saveDoc, updateMarkdown } = useDocuments()
 	return (
 		<DocumentsContext.Provider
-			value={{ documents, selectedDocument, handleSomething }}
+			value={{ documents, selectedDocument, handleSomething, handleAddDoc,handleDeletedDoc, handleSelectDoc, updateNameDoc, saveDoc, updateMarkdown }}
 		>
 			{children}
 		</DocumentsContext.Provider>

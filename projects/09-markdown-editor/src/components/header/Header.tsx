@@ -8,7 +8,8 @@ interface State {
 }
 
 export const Header = ({openSidebar, open}:State) => {
-    const { selectedDocument } = useContext(DocumentsContext )
+    const { selectedDocument, handleDeletedDoc, updateNameDoc, saveDoc } = useContext(DocumentsContext )
+    
   return (
     <header className="w-full bg-[#2b2d31] flex ">
         <div className="w-full flex items-center">
@@ -26,20 +27,20 @@ export const Header = ({openSidebar, open}:State) => {
                     <DocumentIcon />
                 </span>
                 <div className="flex flex-col">
-                    <label htmlFor="" className=" hidden md:inline-block capitalize leading-none text-[#c1c4cb] font-normal text-xs">document name</label>
-                    <input type="text" placeholder="welcome.md" className="w-full text-white  bg-transparent outline-none caret-[#e46643] focus:border-white focus:border-b" defaultValue={selectedDocument.title} />
+                    <label htmlFor="" className=" hidden md:inline-block capitalize leading-none text-[#c1c4cb] font-normal text-xs">document name </label>
+                    <input onChange={e => updateNameDoc(e.target.value)} type="text" placeholder="welcome.md" className="w-full text-white  bg-transparent outline-none caret-[#e46643] focus:border-white focus:border-b" value={selectedDocument.title} />
                 </div>
             </div>
         </div>
         {/* contenedor del nombre el archivo y los botones de accion */}
         <div className=" flex px-2  items-center"> 
             <div className="flex gap-4">
-                <button className="hover:text-[#e46643]">
+                <button onClick={handleDeletedDoc} className={`hover:text-[#e46643] ${ selectedDocument.id === '-1' ? 'hidden': '' }`}>
                     <DeleteIcon />
                 </button>
-                <button className="flex items-center gap-3 text-white bg-[#e46643] rounded-md p-3 hover:opacity-90 md:w-40">
+                <button onClick={() => saveDoc()} disabled={selectedDocument.id === '-1'} className={`flex items-center justify-center text-white rounded-md p-3  md:w-40 ${selectedDocument.id === '-1' ? 'bg-[#5a6069]':'bg-[#e46643] hover:opacity-90'}`}>
                     <SaveIcon />
-                    <span className="hidden capitalize md:inline-block">save changes</span>
+                    <span className="hidden capitalize ml-3 md:inline-block">save changes</span>
                 </button>
             </div>
         </div>

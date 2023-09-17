@@ -5,12 +5,10 @@ export interface Document {
 	createdAt: string
 }
 
-
-export interface DocumentContext { 
-
-}
-
 export type action =
-	| { payload: []; type: 'delete' }
-	| { payload: []; type: 'save' }
-	| { payload: []; type: 'add' }
+	| { type: 'add' }
+	| { type: 'delete' }
+	| { type: 'updateNameDoc', payload: {title: string} }
+	| { type: 'updateMarkdown', payload: {content: string} }
+	| { type: 'select', payload: {id: string} }
+	| { type: 'save' }

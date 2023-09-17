@@ -8,7 +8,7 @@ export const App = () => {
   const [openSidebar, setOpenSidebar] = useState(false)
 
   return (
-    <main className="w-full h-screen  bg-[#151619] font-roboto ">
+    <main className="w-full h-screen bg-[#151619]  ">
       <DocumentsProvider>
         <>
           <Sidebar open={openSidebar} />

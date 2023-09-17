@@ -91,7 +91,7 @@ blockquote p {
 	font-size: 14px;
 	line-height: 24px;
 	color: #FFF;
-    margin-bottom: 1rem;
+	margin-bottom: 0;
 }
 blockquote p a {
 	font-style: normal;
