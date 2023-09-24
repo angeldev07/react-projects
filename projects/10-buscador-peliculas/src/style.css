@@ -7,21 +7,35 @@ main{
     background-color: #003049;
     color: #ffffff;
     padding: 2rem;
+    min-height: 100vh;
 }
 
 .movies-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    gap: 1.5rem;
+    list-style: none;
 }
 
-.movies-container div {
-    margin-bottom: .5rem;
-}
 
-.movies-container div img {
+.movies-container li img {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+}
+
+.movie-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .6rem 0 0;
+}
+
+.movie-info span {
+    display: inline-block;
+    background: #fca311;
+    padding: .3rem .5rem;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
 

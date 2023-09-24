@@ -1,40 +1,48 @@
-import { useState } from 'react'
-import response from './mocks/movies-res.json'
+import { useState, useCallback } from 'react'
+import { useMovies } from './hooks/useMovies'
+import { Movies } from './components/Movies'
+import debounce from 'just-debounce-it'
+
 
 import './style.css'
 
 function App() {
-  const  movies = response.Search
+	const [search, setSearch] = useState('')
+	const { movies, loading, getMovies } = useMovies({ search })
 
-  const [search, setSearch] = useState('')
+  const debounceGetMovies = useCallback( 
+    debounce( (search: string) => {
+      getMovies({search})
+    }, 600)
+  , [])
+  
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value)
-  }
+      debounceGetMovies(e.target.value)
+	}
 
-  const handleClick = () => {
-    console.log(search)
-  }
+	const handleClick = () => {
+    getMovies({search})
+	}
 
-  return (
-    <main>
-      <h1>Buscador de Peliculas</h1>
-      <section className='form'>
-        <input type="text" placeholder='Marvel, DC, ninja...' value={search} onChange={handleChange}/>
-        <button onClick={handleClick}>buscar</button>
-      </section>
-      <section className='movies-container'>
-          {movies.map(movie => (
-              <div key={movie.imdbID}>
-                  <img src={movie.Poster} alt={movie.Title} />
-                  <span>{movie.Title}</span>
-                  <span>{movie.Year}</span>
-              </div>
-          ))}
-      </section>
-    </main>
-  )
+	return (
+		<main>
+			<h1>Buscador de Peliculas</h1>
+			<section className="form">
+				<input
+					type="text"
+					placeholder="Marvel, DC, ninja..."
+					value={search}
+					onChange={handleChange}
+				/>
+				<button onClick={handleClick}>buscar</button>
+			</section>
+			<section>
+				{loading ? <p>Cargando...</p> : <Movies movies={movies} /> }
+			</section>
+		</main>
+	)
 }
 
 export default App
