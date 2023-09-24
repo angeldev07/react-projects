@@ -55,7 +55,7 @@ export const Header = ({openSidebar, open}:State) => {
             <>
                 <h2 className='text-xl font-bold'>Delete this document?</h2>
                 <span className="text-neutral-500 font-semibold  ">
-                Are you sure you want to delete the ‘welcome.md’ document and its contents? This action cannot be reversed.
+                Are you sure you want to delete the ‘{selectedDocument.title}’ document and its contents? This action cannot be reversed.
                 </span>
                 <button onClick={() => { handleDeletedDoc(); notify('Document deleted success'); handleModal(false)} } className="block w-full py-2 rounded-lg mt-4 text-white  font-bold px-4 bg-[#e46643] hover:bg-[#e46643e3] transition-colors text-center capitalize">confirm & delete</button>
             </>

@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+main{
+    background-color: #003049;
+    color: #ffffff;
+    padding: 2rem;
+}
+
+.movies-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.movies-container div {
+    margin-bottom: .5rem;
+}
+
+.movies-container div img {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Form */
+.form{
+    margin: 1rem 0 2rem;
+}
