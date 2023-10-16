@@ -6,16 +6,16 @@ import { Perfil } from './components/Perfil'
 import { useGitUser } from './components/hooks/userGitUser'
 
 function App() {
-  const [value, setValue] = useState('')
-  const { user, getGithubUser} = useGitUser()
+	const [value, setValue] = useState('')
+	const { user,error, loading ,getGithubUser } = useGitUser()
 
-  const handleChange = ( value: string ) => {
-    setValue(value)
-  }
+	const handleChange = (value: string) => {
+		setValue(value)
+	}
 
-  const handleSearch = () => {
-    getGithubUser({username: value})
-  }
+	const handleSearch = () => {
+		getGithubUser({username: value})
+	}
 
 	return (
 		<main>
@@ -24,8 +24,8 @@ function App() {
 			</header>
 			{/* buscador y resultado */}
 			<section>
-				<Input value={value} onClick={handleSearch} onChange={handleChange} />
-        <Perfil user={user}/>
+				<Input value={value} onClick={handleSearch} onChange={handleChange} isError={error}/>
+				{!loading && !error && <Perfil user={user} />}
 			</section>
 		</main>
 	)

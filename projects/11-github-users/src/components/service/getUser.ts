@@ -7,7 +7,9 @@ export const getUser = async ({
 }): Promise<User> => {
 	try {
 		const http = await fetch(
-			`https://api.github.com/users/${username ? username : 'octocat'}`
+			`https://api.github.com/users/${
+				username?.trim().length === 0 ? 'octocat' : username
+			}`
 		)
 		const res = await http.json()
 
@@ -29,7 +31,6 @@ export const getUser = async ({
 			username: res.login,
 		}
 	} catch (error: any) {
-
 		throw new Error(error.message)
 	}
 }

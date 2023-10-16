@@ -8,52 +8,54 @@ interface Props {
 
 export const Perfil = ({user}: Props) => {
   return (
-    <article>
+    <article className="card card-prof">
         {/* encabezado */}
-        <header>
-            <img src={user.avatarUrl} />
-            <div>
-                <span>{user.name}</span>
-                <a href={user.htmlUrl}> @{user.username} </a>
-                <span>{user.createdAt}</span>
+        <header className="card-user">
+            <div className="card-user--profile">
+                <img src={user.avatarUrl} />
+                <div>
+                    <span>{user.name}</span>
+                    <a href={user.htmlUrl}> @{user.username} </a>
+                    <span>Joined {new Date(user.createdAt).toDateString()}</span>
+                </div>
             </div>
-            <p>{user.bio}</p>
+            <p>{user.bio ?? 'This profile has no bio'}</p>
         </header>
         {/* repos */}
-        <section>
+        <section className="card-stats">
             <ul>
                 <li>
-                    Repos
+                    <h3>Repos</h3> 
                     {user.publicRepos}
                 </li>
                 <li>
-                    Followers
+                    <h3>Followers</h3> 
                     {user.followers}
                 </li>
                 <li>
-                    Following
+                    <h3>Following</h3> 
                     {user.following}
                 </li>
             </ul>
         </section>
         {/* extra info */}
-        <section>
-            <ul>
+        <section >
+            <ul className="extra">
                 <li>
                     <BsGeoAltFill />
-                    {user.location}
+                    <span>{user.location ?? 'Not Available'}</span> 
                 </li>
                 <li>
                     <BsLink45Deg />
-                    {user.blog}
+                    <a href={user?.blog ?? ''}>{user?.blog?.length == 0 ? 'Not Available': user.blog}</a>
                 </li>
                 <li>
                     <BsTwitter />
-                    <a href={user.twitter ?? ''}>{user.twitter ?? 'Not Available'}</a>
+                    <a href={`https://twitter.com/${user.twitter}` ?? ''}>{user.twitter ?? 'Not Available'}</a>
                 </li>
                 <li>
                     <BsBuildingsFill />
-                    <a href={user.company ?? ''}> {user.company ?? 'Not Available'} </a>
+                    <a href={`https://github.com/${user.company}` ?? ''}> {user.company ?? 'Not Available'} </a>
                 </li>
             </ul>
         </section>
