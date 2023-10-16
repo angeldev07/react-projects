@@ -1,0 +1,15 @@
+export interface User {
+    avatarUrl: string,
+    name: string,
+    htmlUrl: string,
+    username: string,
+    createdAt: string,
+    bio: string,
+    publicRepos: number,
+    followers: number,
+    following: number,
+    location: string,
+    blog: string,
+    twitter: string,
+    company: string,
+}
